@@ -15,5 +15,10 @@
     "tailwindcss": "^3.4.14",
     "typescript": "~5.6.2",
     "vite": "^5.4.10"
+  },
+  "dependencies": {
+    "@fontsource/krona-one": "^5.1.0",
+    "@fontsource/orbitron": "^5.1.0",
+    "@fontsource/oxygen": "^5.1.0"
   }
 }
