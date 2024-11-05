@@ -7,13 +7,13 @@ export class ProductController {
   private cartController: CartController;
 
   constructor() {
-    this.productService = new ProductService('product-container');
+    this.productService = new ProductService();
     this.cartController = new CartController();
     this.initializeEventListeners();
   }
 
   async getAllProducts(): Promise<Product[]> {
-    const products = await this.productService.fetchProducts();
+    const products = await this.productService.getProducts();
     this.renderProducts(products);
     return products;
   }

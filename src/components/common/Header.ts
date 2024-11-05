@@ -6,7 +6,7 @@ export class Header extends HTMLElement {
   }
 
   private addNavigationListeners() {
-      const navLinks = this.querySelectorAll('nav a');
+      const navLinks = this.querySelectorAll('a');
       navLinks.forEach(link => {
           link.setAttribute('data-link', '');
           link.addEventListener('click', (e) => {
