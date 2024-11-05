@@ -20,7 +20,7 @@ export class Header extends HTMLElement {
 
   render() {
       this.innerHTML =/*html*/ `
-      <header class="bg-transparent w-full ">
+      <header class="bg-transparent w-full top-0 z-50 absolute">
           <div class="container mx-auto px-4">
               <div class="flex items-center justify-between h-20">
                   <!-- Logo -->
