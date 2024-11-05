@@ -10,7 +10,7 @@ export class CartPage extends Page {
   }
 
   async render(): Promise<void> {
-    this.container.innerHTML = `
+    this.container.innerHTML = /*html*/`
       <app-header></app-header>
       <div class="container mx-auto px-4 pt-24">
         <h1 class="text-3xl font-bold mb-8">Your Cart</h1>

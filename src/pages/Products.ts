@@ -14,7 +14,8 @@ export class ProductsPage extends Page {
   }
 
   async render(): Promise<void> {
-    this.container.innerHTML = `
+    this.container.innerHTML = /*html*/ `
+    <app-header></app-header>
       <div class="products-container">
         <h1>Our Products</h1>
         <div id="products-grid" class="products-grid"></div>
