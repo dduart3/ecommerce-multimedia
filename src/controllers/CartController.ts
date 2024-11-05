@@ -3,16 +3,19 @@ import { Product } from '../models/Product';
 
 export class CartController {
   private cartService: CartService;
+  private listeners: ((itemCount: number, total: string) => void)[] = [];
 
   constructor() {
     this.cartService = new CartService();
-    this.initializeCartUI();
   }
 
-  private initializeCartUI() {
-    this.cartService.onUpdate((items) => {
-      this.updateCartCounter();
-      this.updateCartDisplay();
+  
+  onUpdate(callback: (itemCount: number, total: string) => void) {
+    this.listeners.push(callback);
+    this.cartService.onUpdate(() => {
+      const itemCount = this.cartService.getItemCount();
+      const total = this.cartService.getFormattedTotal();
+      callback(itemCount, total);
     });
   }
 
@@ -26,19 +29,5 @@ export class CartController {
 
   updateQuantity(productId: string, quantity: number) {
     this.cartService.updateQuantity(productId, quantity);
-  }
-
-  private updateCartCounter() {
-    const cartCounter = document.getElementById('cart-counter');
-    if (cartCounter) {
-      cartCounter.textContent = this.cartService.getItemCount().toString();
-    }
-  }
-
-  private updateCartDisplay() {
-    const cartTotal = document.getElementById('cart-total');
-    if (cartTotal) {
-      cartTotal.textContent = this.cartService.getFormattedTotal();
-    }
   }
 }

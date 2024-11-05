@@ -1,25 +1,24 @@
-import { db } from '../config/firebase';
-import { collection, addDoc, query, where, getDocs, doc, updateDoc } from 'firebase/firestore';
+import { FirebaseService } from './FirebaseService';
 import { Order } from '../models/Order';
 
 export class OrderService {
+  private firebaseService: FirebaseService;
+
+  constructor() {
+    this.firebaseService = new FirebaseService();
+  }
+
   async createOrder(orderData: any): Promise<Order> {
-    const docRef = await addDoc(collection(db, 'orders'), orderData);
-    return new Order({ id: docRef.id, ...orderData });
+    const orderId = await this.firebaseService.addDocument('orders', orderData);
+    return new Order({ id: orderId, ...orderData });
   }
 
   async getUserOrders(userId: string): Promise<Order[]> {
-    const q = query(collection(db, 'orders'), where('userId', '==', userId));
-    const querySnapshot = await getDocs(q);
-    
-    return querySnapshot.docs.map(doc => {
-        const data = doc.data() as Order;
-        return new Order({ ...data });
-    });
+    const orders = await this.firebaseService.getUserOrders(userId) as Order[];
+    return orders.map(data => new Order(data));
   }
 
-  async updateOrderStatus(orderId: string, status: 'pending' | 'completed' | 'cancelled'): Promise<void> {
-    const orderRef = doc(db, 'orders', orderId);
-    await updateDoc(orderRef, { status });
+  async updateOrderStatus(orderId: string, status: string): Promise<void> {
+    await this.firebaseService.updateDocument('orders', orderId, { status });
   }
 }

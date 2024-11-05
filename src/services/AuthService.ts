@@ -1,14 +1,20 @@
-import { auth, db } from '../config/firebase';
+import { FirebaseService } from './FirebaseService';
+import { auth } from '../config/firebase';
 import { 
   createUserWithEmailAndPassword, 
   signInWithEmailAndPassword, 
   signOut,
   onAuthStateChanged 
 } from 'firebase/auth';
-import { doc, setDoc, updateDoc, getDoc } from 'firebase/firestore';
 import { User } from '../models/User';
 
 export class AuthService {
+  private firebaseService: FirebaseService;
+
+  constructor() {
+    this.firebaseService = new FirebaseService();
+  }
+
   async register(email: string, password: string, name: string): Promise<User> {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     const userData = {
@@ -18,7 +24,7 @@ export class AuthService {
       orders: []
     };
     
-    await setDoc(doc(db, 'users', userData.id), userData);
+    await this.firebaseService.addDocument('users', userData);
     return new User(userData);
   }
 
@@ -34,20 +40,22 @@ export class AuthService {
     return auth.currentUser;
   }
 
+  async getUserProfile(userId: string): Promise<User | null> {
+    const userData = await this.firebaseService.getDocument('users', userId) as User || null;
+    return userData ? new User(userData) : null;
+  }
+
   async updateUserProfile(userId: string, data: Partial<User>) {
-    const userRef = doc(db, 'users', userId);
-    await updateDoc(userRef, data);
-    const updatedDoc = await getDoc(userRef);
-    const userData = updatedDoc.data() as User;
-    return new User({ ...userData });
+    await this.firebaseService.updateDocument('users', userId, data);
+    const updatedData = await this.firebaseService.getDocument('users', userId) as User || null;
+    return new User(updatedData!);
   }
 
   onAuthStateChange(callback: (user: User | null) => void) {
     onAuthStateChanged(auth, async (firebaseUser) => {
       if (firebaseUser) {
-        const userDoc = await getDoc(doc(db, 'users', firebaseUser.uid));
-        const userData = userDoc.data() as User;
-        callback(new User({  ...userData, id: firebaseUser.uid }));
+        const userData = await this.firebaseService.getDocument('users', firebaseUser.uid) as User || null;
+        callback(userData ? new User(userData) : null);
       } else {
         callback(null);
       }
