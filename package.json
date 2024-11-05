@@ -18,6 +18,9 @@
   },
   "dependencies": {
     "@stripe/stripe-js": "^4.9.0",
-    "firebase": "^11.0.1"
+    "firebase": "^11.0.1",
+    "@fontsource/krona-one": "^5.1.0",
+    "@fontsource/orbitron": "^5.1.0",
+    "@fontsource/oxygen": "^5.1.0"
   }
 }

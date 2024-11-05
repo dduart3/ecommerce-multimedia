@@ -2,74 +2,30 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + TS</title>
+    <title>HadesX | Home</title>
   </head>
-  <body class="w-screen h-screen text-white">
-
+  <body class="w-screen h-screen text-white overflow-hidden">
     <div id="app">
-      <header class="bg-transparent shadow-md fixed w-full top-0 z-50">
-        <div class="container mx-auto px-4">
-          <div class="flex items-center justify-between h-20">
-            <!-- Logo -->
-            <div class="flex-shrink-0">
-              <img src="/src/assets/images/logo.png" width="150" alt="Logo" class="h-12 w-auto">
-            </div>
+      <app-header></app-header>
       
-            <!-- Navbar -->
-            <nav class="hidden md:flex space-x-8 ">
-              <a href="#" class=" hover:text-black font-medium transition-colors">INICIO</a>
-              <a href="#" class=" hover:text-black font-medium transition-colors">PRODUCTOS</a>
-              <a href="#" class=" hover:text-black font-medium transition-colors">NOSOTROS</a>
-              <a href="#" class=" hover:text-black font-medium transition-colors">CONTACTO</a>
-            </nav>
-      
-            <!-- Iconos -->
-            <div class="flex items-center space-x-4">
-              <button class="p-2 hover:bg-gray-100 rounded-full transition-colors">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="white">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                </svg>
-              </button>
-              
-              <button class="p-2 hover:bg-gray-100 rounded-full transition-colors">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="white">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-                </svg>
-              </button>
-              
-              <button class="p-2 hover:bg-gray-100 rounded-full transition-colors">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="white">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                </svg>
-              </button>
-            </div>
-          </div>
+      <!-- Hero Section -->
+      <section class="h-full flex items-center justify-space overflow-hidden">
+        
+        <!-- Evoluciona tu estilo   -->
+        <div class="pt-12 pl-24 w-1/2">
+          <h1 class="font-orbitron font-black text-[80px]">EVOLUCIONA TU ESTILO</h1>
+          <p class="font-oxygen text-md mt-[-50px] ">Prepárate para llevar tu look al siguiente nivel con prendas de alta calidad que desafían lo convencional. Únete a nosotros y transforma tu estilo en una declaración de audacia y originalidad.</p>
+          <p class="bg-black w-fit p-3 mt-5 font-oxygen font-bold">Canjea el cupón gratis de hasta un 80% de descuento.</p>
+          <button class="pt-6"><img src="/src/assets/images/ReclamarBtn.png" width="200px" /></button>
         </div>
-      </header>
-      
 
-   <!-- Hero -->
-    
-    <section class="">
-
-
-    </section>
-
-
-
-
-
-
-
-
-
-
-
+        <!-- Imagen  -->
+        <div class="w-1/2 translate-x-32">
+          <img src="/src/assets/images/WomanHero.png" width="600" alt="Hero Image">
+        </div>
+      </section>
     </div>
-
-
 
     <script type="module" src="/src/main.ts"></script>
   </body>

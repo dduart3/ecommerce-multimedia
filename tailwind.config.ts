@@ -5,7 +5,13 @@ export default {
     "./index.html",
     "./src/**/*.{html,js,ts}"],
   theme: {
-    extend: {},
+    extend: {
+        fontFamily: {
+          'krona': ['Krona One', 'sans-serif'],
+          'orbitron': ['Orbitron', 'sans-serif'],
+          'oxygen': ['Oxygen', 'sans-serif'],
+        }
+    },
   },
   plugins: [],
 } satisfies Config

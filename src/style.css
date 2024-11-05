@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Krona+One&family=Orbitron&family=Oxygen&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -27,6 +28,8 @@
 
 body {
   margin: 0;
+  width: 100vw;
+  height: 100vh;
 }
 
 /**
@@ -357,3 +360,4 @@ template {
 body{
   background: radial-gradient(59.13% 59.13% at 51.53% 50%, #000AFF 0%, #22037C 100%) /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
 }
+
