@@ -5,6 +5,7 @@ import { CartController } from './controllers/CartController'
 import { UserController } from './controllers/UserController'
 import { OrderController } from './controllers/OrderController'
 import { UIService } from './services/UIService';
+import { Router } from './router/Router';
 
 class App {
   private productController: ProductController;
@@ -12,6 +13,7 @@ class App {
   private userController: UserController;
   private orderController: OrderController;
   private uiService: UIService;
+  private router: Router;
 
   constructor() {
     this.productController = new ProductController();
@@ -19,6 +21,8 @@ class App {
     this.userController = new UserController();
     this.orderController = new OrderController();
     this.uiService = new UIService();
+    this.router = new Router('app');
+
     this.cartController.onUpdate((items, total) => {
      
     });
