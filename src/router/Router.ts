@@ -1,9 +1,9 @@
 import { HomePage } from '../pages/Home';
 import { ProductsPage } from '../pages/Products';
-//import { CartPage } from '../pages/Cart';
-//import { CheckoutPage } from '../pages/Checkout';
-//import { UserProfilePage } from '../pages/UserProfile';
-//import { OrderHistoryPage } from '../pages/OrderHistory';
+import { CartPage } from '../pages/Cart';
+import { CheckoutPage } from '../pages/Checkout';
+import { UserProfilePage } from '../pages/UserProfile';
+import { OrderHistoryPage } from '../pages/OrderHistory';
 
 export class Router {
   private container: HTMLElement;
@@ -16,11 +16,11 @@ export class Router {
     
     this.routes = new Map([
       ['/', HomePage],
-      ['/products', ProductsPage],/*
+      ['/products', ProductsPage],
       ['/cart', CartPage],
       ['/checkout', CheckoutPage],
       ['/profile', UserProfilePage],
-      ['/orders', OrderHistoryPage]*/
+      ['/orders', OrderHistoryPage]
     ]);
 
     this.initializeRouter();

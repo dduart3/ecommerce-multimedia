@@ -24,7 +24,7 @@ class App {
     this.router = new Router('app');
 
     this.cartController.onUpdate((items, total) => {
-     
+     //TODO
     });
 
     this.userController.onAuthStateChange((user) => {
