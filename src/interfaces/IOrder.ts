@@ -1,3 +1,8 @@
+export enum OrderStatus {
+  PENDING = 'pendiente',
+  COMPLETED = 'completada',
+  CANCELLED = 'cancelada',
+}
 export interface IOrder {
     id: string;
     userId: string;
@@ -7,7 +12,7 @@ export interface IOrder {
       price: number;
     }>;
     total: number;
-    status: 'pending' | 'completed' | 'cancelled';
+    status: OrderStatus;
     createdAt: Date;
   }
   
