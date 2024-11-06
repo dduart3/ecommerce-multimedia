@@ -17,7 +17,8 @@ export class ProductsPage extends Page {
     this.container.innerHTML = /*html*/ `
     <app-header></app-header>
       <div class="products-container">
-        <h1>Our Products</h1>
+     
+
         <div id="products-grid" class="products-grid"></div>
       </div>
     `;
