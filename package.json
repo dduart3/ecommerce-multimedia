@@ -22,7 +22,6 @@
     "@fontsource/orbitron": "^5.1.0",
     "@fontsource/oxygen": "^5.1.0",
     "@stripe/stripe-js": "^4.9.0",
-    "axios": "^1.7.7",
     "firebase": "^11.0.1"
   }
 }
