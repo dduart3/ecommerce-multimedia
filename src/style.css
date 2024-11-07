@@ -356,3 +356,7 @@ body{
   background: radial-gradient(59.13% 59.13% at 51.53% 50%, #000AFF 0%, #22037C 100%) /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
 }
 
+.gradient{
+  background: radial-gradient(59.13% 59.13% at 51.53% 50%, #000AFF 0%, #22037C 100%);
+}
+

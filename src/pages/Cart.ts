@@ -12,14 +12,11 @@ export class CartPage extends Page {
   async render(): Promise<void> {
     this.container.innerHTML = /*html*/`
       <app-header></app-header>
-      <div class="container mx-auto px-4 pt-24">
-        <h1 class="text-3xl font-bold mb-8">Your Cart</h1>
-        <div id="cart-items" class="grid gap-4"></div>
-        <div class="mt-8 flex justify-end">
-          <a href="/checkout" data-link class="bg-black text-white px-6 py-2">
+      <div class="w-1/4 flex flex-col mx-auto px-4 pt-24">
+      <h1 class="text-3xl font-bold ">Your Cart</h1>
+          <a href="/checkout" data-link class="bg-black text-white px-6 py-2  w-32">
             Proceed to Checkout
           </a>
-        </div>
       </div>
     `;
   }

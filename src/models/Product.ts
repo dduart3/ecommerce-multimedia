@@ -6,6 +6,8 @@ export class Product implements IProduct {
   price: number;
   description: string;
   imageUrl: string;
+  stripePriceId: string;
+  stock: number;
 
   constructor(data: IProduct) {
     this.id = data.id;
@@ -13,6 +15,8 @@ export class Product implements IProduct {
     this.price = data.price;
     this.description = data.description;
     this.imageUrl = data.imageUrl;
+    this.stripePriceId = data.stripePriceId;
+    this.stock = data.stock;
   }
 
   getFormattedPrice(): string {
@@ -28,7 +32,9 @@ export class Product implements IProduct {
       name: this.name,
       price: this.price,
       description: this.description,
-      imageUrl: this.imageUrl
+      imageUrl: this.imageUrl,
+      stripePriceId: this.stripePriceId,
+      stock: this.stock
     };
   }
 }

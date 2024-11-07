@@ -4,5 +4,7 @@ export interface IProduct {
     price: number;
     description: string;
     imageUrl: string;
+    stripePriceId: string;
+    stock: number;
   }
   

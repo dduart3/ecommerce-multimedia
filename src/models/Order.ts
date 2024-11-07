@@ -1,4 +1,4 @@
-import { IOrder } from '../interfaces/IOrder';
+import { IOrder, OrderStatus  } from '../interfaces/IOrder';
 
 export class Order implements IOrder {
   id: string;
@@ -9,7 +9,7 @@ export class Order implements IOrder {
     price: number;
   }>;
   total: number;
-  status: 'pending' | 'completed' | 'cancelled';
+  status: OrderStatus;
   createdAt: Date;
 
   constructor(data: IOrder) {
@@ -21,7 +21,7 @@ export class Order implements IOrder {
     this.createdAt = new Date(data.createdAt);
   }
 
-  updateStatus(newStatus: 'pending' | 'completed' | 'cancelled'): void {
+  updateStatus(newStatus: OrderStatus): void {
     this.status = newStatus;
   }
 

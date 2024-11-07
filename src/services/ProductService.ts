@@ -9,7 +9,7 @@ export class ProductService {
   }
 
   async getProducts(): Promise<Product[]> {
-    const products = await this.firebaseService.getCollection('products') as Product[];
+    const products = await this.firebaseService.getCollection('productos') as Product[];
     return products.map(data => new Product(data));
   }
 
