@@ -1,7 +1,7 @@
 import { Page } from './Page';
 import { OrderController } from '../controllers/OrderController';
 
-export class OrderHistoryPage extends Page {
+export class OrdersPage extends Page {
   private orderController: OrderController;
 
   constructor(containerId: string) {

@@ -2,10 +2,10 @@ import { HomePage } from '../pages/Home';
 import { ProductsPage } from '../pages/Products';
 import { CheckoutPage } from '../pages/Checkout';
 import { UserProfilePage } from '../pages/UserProfile';
-import { OrderHistoryPage } from '../pages/OrderHistory';
 import { NotFoundPage } from '../pages/NotFound';
 import { LoginPage } from '../pages/LoginPage';
 import { RegisterPage } from '../pages/RegisterPage';
+import { OrdersPage } from '../pages/OrdersPage';
 
 export class Router {
   private container: HTMLElement;
@@ -24,7 +24,7 @@ export class Router {
       //['/login', LoginPage],
       //['/register', RegisterPage],
       ['/profile', UserProfilePage],
-      ['/orders', OrderHistoryPage],
+      ['/orders', OrdersPage],
       ['/Login', LoginPage],
       ['/Register', RegisterPage],
     ]);
