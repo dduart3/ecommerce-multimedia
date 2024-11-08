@@ -24,7 +24,6 @@ export class ProductsPage extends Page {
     `;
 
     const products = await this.productController.getAllProducts();
-    console.log(products);
     const grid = document.getElementById('products-grid');
     
     if (grid) {

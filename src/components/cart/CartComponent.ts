@@ -1,8 +1,7 @@
 import { Component } from '../Component';
 import { CartState } from '../../state/CartState';
 import { ICartItem } from '../../interfaces/ICart';
-//import './CartItem';
-
+import { CartItem } from './CartItem';
 export class CartComponent extends Component {
   
   private cartState: CartState;
@@ -15,7 +14,6 @@ export class CartComponent extends Component {
 
   render(){
     const total = this.cartState?.getFormattedTotal();
-    const items = this.cartState?.getItems();
     const itemCount = this.cartState?.getItemCount();
     
     this.setTemplate(/*html*/`
@@ -33,16 +31,16 @@ export class CartComponent extends Component {
           <div class="p-4">
             <h3 class="text-lg font-bold mb-2">Shopping Cart</h3>
             <div id="cart-items" class="max-h-96 overflow-auto">
-              ${this.renderCartItems(items)}
+             // Cart items will be rendered here
             </div>
             ${itemCount > 0 ? `
               <div class="mt-4 pt-4 border-t">
                 <div class="flex justify-between items-center">
                   <span class="text-gray-600">Total:</span>
-                  <span class="font-bold text-lg">${total}</span>
+                  <span class="font-bold text-lg text-black">${total}</span>
                 </div>
                 <a href="/checkout" data-link class="block text-center bg-black text-white py-2 mt-4 rounded hover:bg-gray-800 transition-colors">
-                  Checkout
+                  Proceder al pago
                 </a>
               </div>
             ` : ''}
@@ -52,19 +50,23 @@ export class CartComponent extends Component {
     `);
   }
 
- private renderCartItems(items: Map<string, ICartItem>): string {
-    if (!items || items.size === 0) {
-      return '<p class="text-gray-500 text-center py-4">Your cart is empty</p>';
+  private renderCartItems(items: Map<string, ICartItem>): void {
+    const cartItemsContainer = this.querySelector('#cart-items');
+    if (!cartItemsContainer) return;
+
+    if (items.size === 0) {
+        cartItemsContainer.innerHTML = '<p class="text-gray-500 text-center py-4">Your cart is empty</p>';
+        return;
     }
 
-    return Array.from(items.values()).map(item => /* html */`
-      <cart-item .item="${JSON.stringify(item)}"></cart-item>
-    `).join('');
-  }
-
+    cartItemsContainer.innerHTML = '';
+    Array.from(items.values()).forEach(item => {
+        const cartItem = new CartItem(item);
+        cartItemsContainer.appendChild(cartItem);
+    });
+}
   protected onMount(): void {
     this.unsubscribe = this.cartState?.subscribe(() => this.onUpdate());
-    this.addEventListeners();
   }
 
   protected onUnmount(): void {
@@ -74,7 +76,9 @@ export class CartComponent extends Component {
   }
 
   protected onUpdate(): void {
-      this.render();
+    this.render();
+    this.renderCartItems(this.cartState?.getItems());
+    this.addEventListeners();
   }
 
   private addEventListeners(): void {
@@ -83,7 +87,6 @@ export class CartComponent extends Component {
     const removeButtons = this.querySelectorAll('.remove-item');
 
     cartButton?.addEventListener('click', () => {
-        console.log('Cart button clicked');
       dropdown?.classList.toggle('hidden');
     });
 
@@ -94,12 +97,6 @@ export class CartComponent extends Component {
           this.cartState.removeFromCart(productId);
         }
       });
-    });
-
-    document.addEventListener('click', (e) => {
-      if (!this.contains(e.target as Node)) {
-        dropdown?.classList.add('hidden');
-      }
     });
   }
 }
