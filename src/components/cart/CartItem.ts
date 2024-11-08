@@ -41,16 +41,13 @@ export class CartItem extends Component {
   }
 
   protected onMount(): void {
-    this.render();
     this.addEventListeners();
   }
 
   protected onUnmount(): void {
-    //this.removeEventListeners();
   }
 
   protected onUpdate(): void {
-    this.render();
   }
 
   private addEventListeners(): void {

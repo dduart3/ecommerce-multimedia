@@ -6,6 +6,7 @@ export class CartComponent extends Component {
   
   private cartState: CartState;
   private unsubscribe: (() => void) | null = null;
+  private isDropdownOpen: boolean = false;
 
   constructor() {
     super();
@@ -18,7 +19,7 @@ export class CartComponent extends Component {
     
     this.setTemplate(/*html*/`
       <div class="cart-widget relative">
-        <button class="p-2 hover:bg-gray-100 rounded-full transition-colors group">
+        <button id="cart-button" class="p-2 hover:bg-gray-100 rounded-full transition-colors group">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 group-hover:stroke-black" fill="none" viewBox="0 0 24 24" stroke="white">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
           </svg>
@@ -27,7 +28,7 @@ export class CartComponent extends Component {
           </span>
         </button>
         
-        <div class="cart-dropdown hidden absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-xl z-50">
+        <div class="cart-dropdown ${this.isDropdownOpen ? '' : 'hidden'} absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-xl z-50">
           <div class="p-4">
             <h3 class="text-lg font-bold mb-2">Shopping Cart</h3>
             <div id="cart-items" class="max-h-96 overflow-auto">
@@ -82,12 +83,19 @@ export class CartComponent extends Component {
   }
 
   private addEventListeners(): void {
-    const cartButton = this.querySelector('button');
+    const cartButton = this.querySelector('#cart-button');
     const dropdown = this.querySelector('.cart-dropdown');
     const removeButtons = this.querySelectorAll('.remove-item');
 
     cartButton?.addEventListener('click', () => {
-      dropdown?.classList.toggle('hidden');
+      const isDropDownHidden = dropdown?.classList.contains('hidden');
+      if (isDropDownHidden) {
+        this.isDropdownOpen = true;
+        dropdown?.classList.remove('hidden');
+      } else {
+        this.isDropdownOpen = false;
+        dropdown?.classList.add('hidden');
+      }
     });
 
     removeButtons.forEach(button => {

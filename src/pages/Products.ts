@@ -28,7 +28,6 @@ export class ProductsPage extends Page {
     
     if (grid) {
       products.forEach(product => {
-       
         const card = new ProductCard(product);
         grid.appendChild(card);
       });
