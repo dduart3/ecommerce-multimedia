@@ -18,7 +18,7 @@ export class UserState {
     return UserState.instance;
   }
 
-  async updateProfile(userData: Partial<User>): Promise<void> {
+  async updateProfile(userData: User): Promise<void> {
     if (!this.currentUser?.id) return Promise.reject('No user logged in');
     
     const user = await this.userController.updateUser(this.currentUser.id, userData);

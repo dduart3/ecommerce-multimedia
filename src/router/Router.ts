@@ -21,6 +21,8 @@ export class Router {
       ['/products', ProductsPage],
       ['/cart', CartPage],
       ['/checkout', CheckoutPage],
+      //['/login', LoginPage],
+      //['/register', RegisterPage],
       ['/profile', UserProfilePage],
       ['/orders', OrderHistoryPage]
     ]);

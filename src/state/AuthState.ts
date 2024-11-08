@@ -1,4 +1,5 @@
 import { AuthController } from '../controllers/AuthController';
+import { validateUserData,OperationResult, validatePassword, validateEmail  } from '../utils/validators';
 
 export class AuthState {
   private static instance: AuthState;
@@ -17,20 +18,36 @@ export class AuthState {
     return AuthState.instance;
   }
 
-  async login({email, password}: {email: string, password: string}): Promise<void> {
-    return this.authController.login({email, password})
+  async login({email, password}: {email: string, password: string}): Promise<OperationResult> {
+    const emailValidationResult = validateEmail(email);
+    const passwordValidationResult = validatePassword(password);
+    
+    if (emailValidationResult !== OperationResult.Success) return emailValidationResult;
+    if (passwordValidationResult !== OperationResult.Success) return passwordValidationResult;
+
+    await this.authController.login({email, password})
       .then(() => {
         this.isAuthenticated = true;
         this.notifySubscribers();
       });
+
+      return OperationResult.Success;
   }
 
-  async register({email, password}: {email: string, password: string}): Promise<void> {
-    return this.authController.register({email, password})
+  async register({email, password, firstName, lastName}: {email: string, password: string, firstName: string, lastName:string}): Promise<OperationResult> {
+    const userDataValidationResult = validateUserData({email, firstName, lastName});
+    const passwordValidationResult = validatePassword(password);
+
+    if (userDataValidationResult !== OperationResult.Success) return userDataValidationResult;
+    if (passwordValidationResult !== OperationResult.Success) return passwordValidationResult;
+
+    await this.authController.register({email, password, firstName, lastName})
       .then(() => {
         this.isAuthenticated = true;
         this.notifySubscribers();
       });
+      
+      return OperationResult.Success;
   }
 
   async logout(): Promise<void> {

@@ -3,13 +3,15 @@ import { IUser } from '../interfaces/IUser';
 export class User implements IUser {
   id: string;
   email: string;
-  name: string;
+  firstName: string;
+  lastName: string;
   orders: string[];
 
   constructor(data: IUser) {
     this.id = data.id;
     this.email = data.email;
-    this.name = data.name;
+    this.firstName = data.firstName;
+    this.lastName = data.lastName;
     this.orders = data.orders || [];
   }
 
@@ -21,7 +23,8 @@ export class User implements IUser {
     return {
       id: this.id,
       email: this.email,
-      name: this.name,
+      firstName: this.firstName,
+      lastName: this.lastName,
       orders: this.orders
     };
   }

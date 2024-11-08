@@ -1,5 +1,4 @@
 import { UserService } from '../services/UserService';
-
 import { User } from '../models/User';
 
 export class UserController {
@@ -9,15 +8,11 @@ export class UserController {
     this.userService = new UserService();
   }
 
-  async createUser(id: string, userData: Partial<User>): Promise<User> {
-    return this.userService.createUser(id, userData);
-  }
-
   async getUser(id: string): Promise<User> {
     return this.userService.getUser(id);
   }
 
-  async updateUser(id: string, userData: Partial<User>): Promise<User> {
+  async updateUser(id: string, userData: User): Promise<User> {
     return this.userService.updateUser(id, userData);
   }
 }
