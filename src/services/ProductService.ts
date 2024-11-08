@@ -14,7 +14,7 @@ export class ProductService {
   }
 
   async getProductById(id: string): Promise<Product | null> {
-    const data = await this.firebaseService.getDocument('products', id) as Product;
+    const data = await this.firebaseService.getDocument('productos', id) as Product;
     return data ? new Product(data) : null;
   }
 }
