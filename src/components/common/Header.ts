@@ -26,10 +26,10 @@ export class Header extends Component {
 
             <!-- Navbar -->
             <nav class="hidden md:flex space-x-8">
-              <a href="#" class="hover:text-black font-medium transition-colors">INICIO</a>
-              <a href="#" class="hover:text-black font-medium transition-colors">PRODUCTOS</a>
-              <a href="#" class="hover:text-black font-medium transition-colors">NOSOTROS</a>
-              <a href="#" class="hover:text-black font-medium transition-colors">CONTACTO</a>
+              <a href="/" class="hover:text-black font-medium transition-colors">INICIO</a>
+              <a href="/products" class="hover:text-black font-medium transition-colors">PRODUCTOS</a>
+              <a href="/about" class="hover:text-black font-medium transition-colors">NOSOTROS</a>
+              <a href="/contact" class="hover:text-black font-medium transition-colors">CONTACTO</a>
             </nav>
 
             <!-- Icons -->

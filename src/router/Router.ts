@@ -21,12 +21,10 @@ export class Router {
       ['/', HomePage],
       ['/products', ProductsPage],
       ['/checkout', CheckoutPage],
-      //['/login', LoginPage],
-      //['/register', RegisterPage],
+      ['/login', LoginPage],
+      ['/register', RegisterPage],
       ['/profile', UserProfilePage],
       ['/orders', OrdersPage],
-      ['/Login', LoginPage],
-      ['/Register', RegisterPage],
     ]);
 
     this.initializeRouter();

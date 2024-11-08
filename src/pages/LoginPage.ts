@@ -1,22 +1,7 @@
 import { Page } from './Page';
 
-interface FormData {
-  email: string;
-  password: string;
-}
-
-interface FormErrors {
-  email?: string;
-  password?: string;
-}
-
 export class LoginPage extends Page {
-  private formData: FormData = {
-    email: '',
-    password: ''
-  };
-  private errors: FormErrors = {};
-  private isLoading: boolean = false;
+
 
   async render(): Promise<void> {
     this.container.innerHTML = /*html*/ `
@@ -27,11 +12,11 @@ export class LoginPage extends Page {
         <div class="hidden lg:block lg:w-1/2">
        
         <!-- Boton para ir hacia atras -->
-        <button class="absolute h-16 w-16 ml-7 mt-10 bg-black rounded-full border-4 border-white flex items-center justify-center hover:bg-primary hover:scale-110 transition-all ease-in-out"> 
+        <a href="/products" class="absolute h-16 w-16 ml-7 mt-10 bg-black rounded-full border-4 border-white flex items-center justify-center hover:bg-primary hover:scale-110 transition-all ease-in-out"> 
                 <svg class="w-10 h-10" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="none" viewBox="0 0 24 24"> 
                     <path stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12l4-4m-4 4 4 4"/>
                 </svg> 
-        </button>
+        </a >
         <!-- termina el Boton -->  
         
                 <img
@@ -93,10 +78,11 @@ export class LoginPage extends Page {
                     </label>
                 </div>
                 
-                <div class="text-sm">
+                <div class="text-sm flex flex-col">
                     <a href="#" class="font-medium text-blue-600 hover:text-blue-500">
                         ¿Olvidaste tu contraseña?
                     </a>
+                    <a href="/register" class="font-medium text-blue-600 hover:text-blue-500">¿No tienes cuenta? Registrate</a>
                 </div>
             </div>
             
@@ -121,84 +107,6 @@ export class LoginPage extends Page {
     const emailInput = document.getElementById('email-address') as HTMLInputElement;
     const passwordInput = document.getElementById('password') as HTMLInputElement;
     const submitButton = document.getElementById('submit-button') as HTMLButtonElement;
-
-    // Event Listener
-    formElement.addEventListener('submit', (e) => this.handleSubmit(e));
-    emailInput.addEventListener('input', (e) => this.handleChange(e));
-    passwordInput.addEventListener('input', (e) => this.handleChange(e));
-  }
-
-  private handleChange(e: Event): void {
-    const target = e.target as HTMLInputElement;
-    const { name, value } = target;
-    this.formData = {
-      ...this.formData,
-      [name]: value
-    };
-    this.clearError(name);
-  }
-
-  private clearError(fieldName: string): void {
-    const errorElement = document.getElementById(`${fieldName}-error`);
-    if (errorElement) {
-      errorElement.textContent = '';
-    }
-  }
-
-  private validateForm(): FormErrors {
-    const newErrors: FormErrors = {};
-    if (!this.formData.email) {
-      newErrors.email = "Email is required";
-    } else if (!/\S+@\S+\.\S+/.test(this.formData.email)) {
-      newErrors.email = "Email incorrecto";
-    }
-    if (!this.formData.password) {
-      newErrors.password = "Ingresa una contraseña";
-    }
-    return newErrors;
-  }
-
-  private setLoading(isLoading: boolean): void {
-    this.isLoading = isLoading;
-    const submitButton = document.getElementById('submit-button') as HTMLButtonElement;
-    submitButton.disabled = isLoading;
-    submitButton.innerHTML = isLoading 
-      ? `<svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-           <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-           <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-         </svg> Signing in...`
-      : 'Sign in';
-  }
-
-  private showErrors(errors: FormErrors): void {
-    Object.entries(errors).forEach(([field, message]) => {
-      const errorElement = document.getElementById(`${field}-error`);
-      if (errorElement) {
-        errorElement.textContent = message;
-      }
-    });
-  }
-
-  private async handleSubmit(e: Event): Promise<void> {
-    e.preventDefault();
-    const newErrors = this.validateForm();
-    
-    if (Object.keys(newErrors).length === 0) {
-      this.setLoading(true);
-      try {
-        // Simulate API call
-        await new Promise(resolve => setTimeout(resolve, 2000));
-        console.log('Form submitted:', this.formData);
-        // Here you would typically send the data to your backend
-        alert('Inicio de sesión exitoso');
-      } catch (error) {
-        console.error("Error al iniciar sesion:", error);
-        alert('Error al intentar iniciar sesion');
-      } finally {
-        this.setLoading(false);
-      }
-    } else {
-      this.showErrors(newErrors);
-    }
+   
   }
 }
