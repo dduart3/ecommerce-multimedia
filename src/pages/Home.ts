@@ -23,9 +23,6 @@ export class HomePage extends Page {
             <div class="w-1/2 translate-x-32">
           <img src="/src/assets/images/WomanHero.png" width="600" alt="Hero Image">
         </div>
-        
-        
-        
       </div>
       
       
