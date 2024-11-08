@@ -1,31 +1,28 @@
 import "./style.css";
+import './components/cart/CartItem';
+import './components/cart/CartComponent';
 import "./components/common/Header";
-import { ProductController } from "./controllers/ProductController";
-import { CartController } from "./controllers/CartController";
+
 import { UserController } from "./controllers/UserController";
 import { OrderController } from "./controllers/OrderController";
 import { Router } from "./router/Router";
 import { StripeService } from "./services/StripeService";
+import { CartState } from "./state/CartState";
 
 class App {
-  private productController: ProductController;
-  private cartController: CartController;
   private userController: UserController;
   private orderController: OrderController;
   private router: Router;
   private stripeService: StripeService;
+  private cartState: CartState;
 
   constructor() {
-    this.productController = new ProductController();
-    this.cartController = new CartController();
     this.userController = new UserController();
     this.orderController = new OrderController();
     this.stripeService = StripeService.getInstance();
+    this.cartState = CartState.getInstance();
     this.router = new Router("app");
 
-    this.cartController.onUpdate((items, total) => {
-      //TODO
-    });
 
     this.initialize();
   }
@@ -33,37 +30,13 @@ class App {
   private async initialize() {
     try {
       await this.setupEventListeners();
-      //await this.productController.getAllProducts();
-
-      
-
-      //const products = await response.json();
-      //console.log(products);
     } catch (error) {
       console.error("Error initializing app:", error);
     }
   }
 
   private async setupEventListeners() {
-    // Auth related listeners
-    const loginForm = document.getElementById("login-form");
-    const checkoutButton = document.getElementById("checkout-button");
-
-    loginForm?.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const email = (document.getElementById("email") as HTMLInputElement)
-        .value;
-      const password = (document.getElementById("password") as HTMLInputElement)
-        .value;
-      await this.userController.login(email, password);
-    });
-
-    checkoutButton?.addEventListener("click", async () => {
-      const order = await this.orderController.createOrder();
-      if (order) {
-        console.log("Order created:", order);
-      }
-    });
+  
   }
 }
 
