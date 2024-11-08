@@ -1,22 +1,16 @@
 import { CartService } from '../services/CartService';
 import { Product } from '../models/Product';
+import { ICartItem } from '../interfaces/ICart';
 
 export class CartController {
   private cartService: CartService;
-  private listeners: ((itemCount: number, total: string) => void)[] = [];
 
   constructor() {
     this.cartService = new CartService();
   }
 
-  
-  onUpdate(callback: (itemCount: number, total: string) => void) {
-    this.listeners.push(callback);
-    this.cartService.onUpdate(() => {
-      const itemCount = this.cartService.getItemCount();
-      const total = this.cartService.getFormattedTotal();
-      callback(itemCount, total);
-    });
+  getItems(): Map<string, ICartItem> {
+    return this.cartService.getItems();
   }
 
   addToCart(product: Product, quantity: number = 1) {
@@ -27,7 +21,19 @@ export class CartController {
     this.cartService.removeItem(productId);
   }
 
-  updateQuantity(productId: string, quantity: number) {
+  getItemCount(): number {
+    return this.cartService.getItemCount();
+  }
+
+  updateQuantity(productId: string, quantity: number): void {
     this.cartService.updateQuantity(productId, quantity);
+  }
+
+  getTotal(): number {
+    return this.cartService.getTotal();
+  }
+
+  getFormattedTotal(): string {
+    return this.cartService.getFormattedTotal();
   }
 }
