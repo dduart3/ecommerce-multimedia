@@ -1,3 +1,5 @@
+import { IProduct } from "./IProduct";
+
 export interface ICart {
   items: Map<string, ICartItem>;
   userId?: string;
@@ -5,7 +7,6 @@ export interface ICart {
 }
 
 export interface ICartItem {
-  productId: string;
+  product: IProduct;
   quantity: number;
-  price: number;
 }
