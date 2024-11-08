@@ -7,5 +7,17 @@ export abstract class Page {
     this.container = element;
   }
 
-  abstract render(): void;
+  abstract render(): Promise<void>;
+
+  protected onMount(): void {
+    // Called after render
+  }
+
+  protected onUnmount(): void {
+    // Cleanup before page change
+  }
+
+  protected onUpdate(): void {
+    // Called when page needs to update
+  }
 }
