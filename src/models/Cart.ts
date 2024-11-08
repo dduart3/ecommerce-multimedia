@@ -1,5 +1,5 @@
 import { ICart, ICartItem } from '../interfaces/ICart';
-import { Product } from './Product';
+import { IProduct } from '../interfaces/IProduct';
 
 export class Cart implements ICart {
   items: Map<string, ICartItem>;
@@ -13,13 +13,12 @@ export class Cart implements ICart {
     this.lastUpdated = new Date();
   }
 
-  addItem(product: Product, quantity: number = 1): void {
+  addItem(product: IProduct, quantity: number = 1): void {
     const existing = this.items.get(product.id);
     
     const cartItem: ICartItem = {
-      productId: product.id,
+      product: product,
       quantity: existing ? existing.quantity + quantity : quantity,
-      price: product.price
     };
 
     this.items.set(product.id, cartItem);
@@ -45,7 +44,7 @@ export class Cart implements ICart {
   getTotal(): number {
     let total = 0;
     this.items.forEach(item => {
-      total += item.price * item.quantity;
+      total += item.product.price * item.quantity;
     });
     return total;
   }
