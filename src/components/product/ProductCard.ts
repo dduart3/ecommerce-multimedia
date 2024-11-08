@@ -20,8 +20,8 @@ export class ProductCard extends Component {
                alt="${this.product.name}" 
                class="w-full h-[200px] object-contain bg-gray-50">
         </div>
-        <div class="p-3">
-          <h3 class="text-lg font-bold mb-1 truncate">${this.product.name}</h3>
+        <div class="p-3 font-orbitron">
+          <h3 class="text-md font-bold mb-1 truncate">${this.product.name}</h3>
           <p class="mb-2 text-sm h-12 overflow-hidden">${this.product.description}</p>
           <div class="flex justify-between items-center">
             <span class="text-lg font-bold">${this.product.getFormattedPrice()}</span>

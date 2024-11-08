@@ -12,16 +12,25 @@ export class ProductsPage extends Page {
 
   async render(): Promise<void> {
     this.container.innerHTML = /*html*/ `
-      <app-header></app-header>
-      <div class=" mx-auto px-16 pt-16 ">
-        <h1 class=" text-5xl font-bold text-center mb-12 font-orbitron">Productos</h1>
+      <app-header class=""></app-header>
+      <div class=" mx-auto  mt-20 bg-slate-50 w-full">
+      <h1 class="text-5xl font-bold text-center h-64 font-orbitron relative bg-[url('./src/assets/images/Techwear.jpg')] bg-right bg-contain bg-no-repeat grid place-items-center">
+      <div class="absolute inset-0 bg-black opacity-20"></div>
+      <span class="relative z-10 text-[90px]">Productos</span>
+</h1>
         
-        <!-- Products Grid -->
-        <div id="products-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8 mt-4">
-          <!-- Product cards will be inserted here -->
+        <div class="flex mt-[-32px]">
+          <div class="h-screen bg-black w-1/2">
+
+          </div>
+          
+          <!-- Products Grid -->
+          <div id="products-grid" class="grid pt-10 px-12 grid-cols-6 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols- gap-8 mt-4">
+            <!-- Product cards will be inserted here -->
+          </div>
         </div>
-      </div>
-    `;
+        </div>
+        `;
 
     const products = await this.productController.getAllProducts();
     const grid = document.getElementById('products-grid');
