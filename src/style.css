@@ -364,4 +364,6 @@ body{
   width: 600px;
   height: 300px;
 }
-
+input{
+  color: black;
+}
