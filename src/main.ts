@@ -2,12 +2,13 @@ import "./style.css";
 import './components/cart/CartItem';
 import './components/cart/CartComponent';
 import "./components/common/Header";
+import './components/common/Footer';
 
-import { UserController } from "./controllers/UserController";
-import { OrderController } from "./controllers/OrderController";
-import { Router } from "./router/Router";
 import { StripeService } from "./services/StripeService";
 import { CartState } from "./state/CartState";
+import { UserController } from './controllers/UserController'
+import { OrderController } from './controllers/OrderController'
+import { Router } from './router/Router';
 
 class App {
   private userController: UserController;
@@ -31,7 +32,7 @@ class App {
     try {
       await this.setupEventListeners();
     } catch (error) {
-      console.error("Error initializing app:", error);
+      console.error('Error initializing app:', error);
     }
   }
 
