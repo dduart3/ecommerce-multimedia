@@ -24,30 +24,6 @@ export class StripeService {
     console.log('Stripe initialized successfully');
   }
 
-  async getProducts() {
-    const response = await fetch('https://api.stripe.com/v1/products', {
-      headers: {
-        'Authorization': `Bearer ${process.env.STRIPE_PUBLIC_KEY}`,
-      }
-    });
-
-    const { data: products } = await response.json();
-    
-    const productsWithPrices = await Promise.all(
-      products.map(async (product: any) => {
-        const priceResponse = await fetch(`https://api.stripe.com/v1/prices?product=${product.id}`, {
-          headers: {
-            'Authorization': `Bearer ${process.env.STRIPE_PUBLIC_KEY}`,
-          }
-        });
-        const { data: prices } = await priceResponse.json();
-        return { ...product, price: prices[0] };
-      })
-    );
-
-    return productsWithPrices;
-  }
-
 
   async redirectToCheckout(sessionId: string) {
     if (!this.stripe) {
