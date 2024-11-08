@@ -6,6 +6,7 @@ import { NotFoundPage } from '../pages/NotFound';
 import { LoginPage } from '../pages/LoginPage';
 import { RegisterPage } from '../pages/RegisterPage';
 import { OrdersPage } from '../pages/OrdersPage';
+import { About } from '../pages/About';
 
 export class Router {
   private container: HTMLElement;
@@ -22,6 +23,7 @@ export class Router {
       ['/products', ProductsPage],
       ['/checkout', CheckoutPage],
       ['/login', LoginPage],
+      ['/about', About],
       ['/register', RegisterPage],
       ['/profile', UserProfilePage],
       ['/orders', OrdersPage],
