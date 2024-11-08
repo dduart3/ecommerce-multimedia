@@ -56,7 +56,7 @@ export class CartComponent extends Component {
     if (!cartItemsContainer) return;
 
     if (items.size === 0) {
-        cartItemsContainer.innerHTML = '<p class="text-gray-500 text-center py-4">Your cart is empty</p>';
+        cartItemsContainer.innerHTML = '<p class="text-gray-500 text-center py-4">El carrito está vacio</p>';
         return;
     }
 

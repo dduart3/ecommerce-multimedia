@@ -1,14 +1,19 @@
 import { AuthController } from '../controllers/AuthController';
 import { validateUserData,OperationResult, validatePassword, validateEmail  } from '../utils/validators';
+import { UserState } from './UserState';
+import { auth } from '../config/firebase';
 
 export class AuthState {
   private static instance: AuthState;
   private authController: AuthController;
+  private userState: UserState;
   private isAuthenticated: boolean = false;
   private subscribers: ((isAuth: boolean) => void)[] = [];
 
   private constructor() {
     this.authController = new AuthController();
+    this.userState = UserState.getInstance();
+    this.initAuthListener();
   }
 
   public static getInstance(): AuthState {
@@ -18,10 +23,14 @@ export class AuthState {
     return AuthState.instance;
   }
 
+  public isUserAuthenticated(): boolean {
+    return this.isAuthenticated;
+  }
+
   async login({email, password}: {email: string, password: string}): Promise<OperationResult> {
     const emailValidationResult = validateEmail(email);
     const passwordValidationResult = validatePassword(password);
-    
+
     if (emailValidationResult !== OperationResult.Success) return emailValidationResult;
     if (passwordValidationResult !== OperationResult.Success) return passwordValidationResult;
 
@@ -56,6 +65,18 @@ export class AuthState {
         this.isAuthenticated = false;
         this.notifySubscribers();
       });
+  }
+
+  private initAuthListener() {
+    auth.onAuthStateChanged(async (user) => {
+      if (user) {
+        await this.userState.loadUserProfile(user.uid);
+        this.isAuthenticated = true;
+      } else {
+        this.isAuthenticated = false;
+      }
+      this.notifySubscribers();
+    });
   }
 
   subscribe(callback: (isAuth: boolean) => void) {

@@ -1,6 +1,5 @@
 import { HomePage } from '../pages/Home';
 import { ProductsPage } from '../pages/Products';
-import { CartPage } from '../pages/Cart';
 import { CheckoutPage } from '../pages/Checkout';
 import { UserProfilePage } from '../pages/UserProfile';
 import { OrderHistoryPage } from '../pages/OrderHistory';
@@ -19,7 +18,6 @@ export class Router {
     this.routes = new Map([
       ['/', HomePage],
       ['/products', ProductsPage],
-      ['/cart', CartPage],
       ['/checkout', CheckoutPage],
       //['/login', LoginPage],
       //['/register', RegisterPage],

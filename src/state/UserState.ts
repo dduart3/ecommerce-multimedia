@@ -43,4 +43,8 @@ export class UserState {
   private notifySubscribers(): void {
     this.subscribers.forEach(callback => callback(this.currentUser));
   }
+
+  public getCurrentUser(): User | null {
+    return this.currentUser;
+  }
 }
