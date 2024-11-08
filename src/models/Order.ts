@@ -1,13 +1,10 @@
+import { ICartItem } from '../interfaces/ICart';
 import { IOrder, OrderStatus  } from '../interfaces/IOrder';
 
 export class Order implements IOrder {
   id: string;
   userId: string;
-  products: Array<{
-    productId: string;
-    quantity: number;
-    price: number;
-  }>;
+  items: ICartItem[];
   total: number;
   status: OrderStatus;
   createdAt: Date;
@@ -15,7 +12,7 @@ export class Order implements IOrder {
   constructor(data: IOrder) {
     this.id = data.id;
     this.userId = data.userId;
-    this.products = data.products;
+    this.items = data.items;
     this.total = data.total;
     this.status = data.status;
     this.createdAt = new Date(data.createdAt);
@@ -26,14 +23,14 @@ export class Order implements IOrder {
   }
 
   calculateTotal(): number {
-    return this.products.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    return this.items.reduce((sum, item) => sum + (item.product.price * item.quantity), 0);
   }
 
   toJSON(): IOrder {
     return {
       id: this.id,
       userId: this.userId,
-      products: this.products,
+      items: this.items,
       total: this.total,
       status: this.status,
       createdAt: this.createdAt

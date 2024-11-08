@@ -1,3 +1,4 @@
+import { ICartItem } from "./ICart";
 export enum OrderStatus {
   PENDING = 'pendiente',
   COMPLETED = 'completada',
@@ -6,11 +7,7 @@ export enum OrderStatus {
 export interface IOrder {
     id: string;
     userId: string;
-    products: Array<{
-      productId: string;
-      quantity: number;
-      price: number;
-    }>;
+    items: ICartItem[];
     total: number;
     status: OrderStatus;
     createdAt: Date;

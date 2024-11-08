@@ -360,3 +360,8 @@ body{
   background: radial-gradient(59.13% 59.13% at 51.53% 50%, #000AFF 0%, #22037C 100%);
 }
 
+.swiper {
+  width: 600px;
+  height: 300px;
+}
+

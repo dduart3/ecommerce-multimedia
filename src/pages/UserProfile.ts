@@ -1,12 +1,9 @@
 import { Page } from './Page';
-import { UserController } from '../controllers/UserController';
 
 export class UserProfilePage extends Page {
-  private userController: UserController;
 
   constructor(containerId: string) {
     super(containerId);
-    this.userController = new UserController();
   }
 
   async render(): Promise<void> {
