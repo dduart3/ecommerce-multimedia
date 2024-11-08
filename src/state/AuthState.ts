@@ -34,11 +34,12 @@ export class AuthState {
     if (emailValidationResult !== OperationResult.Success) return emailValidationResult;
     if (passwordValidationResult !== OperationResult.Success) return passwordValidationResult;
 
-    await this.authController.login({email, password})
+     await this.authController.login({email, password})
       .then(() => {
         this.isAuthenticated = true;
         this.notifySubscribers();
       });
+
 
       return OperationResult.Success;
   }

@@ -1,7 +1,14 @@
 import { Page } from './Page';
+import { AuthState } from '../state/AuthState';
+import { OperationResult } from '../utils/validators';
 
 export class LoginPage extends Page {
+    private authState: AuthState;
 
+    constructor(container: string) {
+        super(container);
+        this.authState = AuthState.getInstance();
+    }
 
   async render(): Promise<void> {
     this.container.innerHTML = /*html*/ `
@@ -79,9 +86,6 @@ export class LoginPage extends Page {
                 </div>
                 
                 <div class="text-sm flex flex-col">
-                    <a href="#" class="font-medium text-blue-600 hover:text-blue-500">
-                        ¿Olvidaste tu contraseña?
-                    </a>
                     <a href="/register" class="font-medium text-blue-600 hover:text-blue-500">¿No tienes cuenta? Registrate</a>
                 </div>
             </div>
@@ -103,10 +107,46 @@ export class LoginPage extends Page {
 `;
 
     
-    const formElement = document.getElementById('login-form') as HTMLFormElement;
+   const formElement = document.getElementById('login-form') as HTMLFormElement;
     const emailInput = document.getElementById('email-address') as HTMLInputElement;
     const passwordInput = document.getElementById('password') as HTMLInputElement;
     const submitButton = document.getElementById('submit-button') as HTMLButtonElement;
+    const emailError = document.getElementById('email-error') as HTMLParagraphElement;
+    const passwordError = document.getElementById('password-error') as HTMLParagraphElement;
+
+    formElement.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      // Clear previous error messages
+      emailError.textContent = '';
+      passwordError.textContent = '';
+      
+      // Disable submit button while processing
+      submitButton.disabled = true;
+
+      const result = await this.authState.login({
+        email: emailInput.value,
+        password: passwordInput.value
+      });
+
+      if (result === OperationResult.Success) {
+        //window.location.href = '/'; // Redirect to home page after successful login
+      } else {
+        // Handle different error cases
+        switch(result) {
+          case OperationResult.InvalidEmailFormat:
+            emailError.textContent = 'Por favor introduce un correo electrónico válido';
+            break;
+          case OperationResult.InvalidPasswordFormat:
+            passwordError.textContent = 'Por favor introduce una contraseña válida';
+            break;
+          default:
+            passwordError.textContent = 'Error desconocido';
+        }
+      }
+
+      submitButton.disabled = false;
+    });
+  }
    
   }
-}

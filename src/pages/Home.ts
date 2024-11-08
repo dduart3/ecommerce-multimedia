@@ -232,8 +232,7 @@ export class HomePage extends Page {
               <div class="swiper-button-prev"></div>
               <div class="swiper-button-next"></div>
 
-              <!-- If we need scrollbar -->
-              <div class="swiper-scrollbar"></div>
+
             </div>
           </div>
 
@@ -280,7 +279,7 @@ export class HomePage extends Page {
 
     new Swiper(".swiper", {
       // Optional parameters
-      direction: "vertical",
+      direction: "horizontal",
       loop: true,
       autoplay: {
         delay: 2500,
@@ -299,9 +298,7 @@ export class HomePage extends Page {
       },
 
       // And if we need scrollbar
-      scrollbar: {
-        el: ".swiper-scrollbar",
-      },
+      
     });
   }
 }

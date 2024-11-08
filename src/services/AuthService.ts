@@ -10,7 +10,9 @@ export class AuthService {
   }
 
   async login({email, password}:{email: string, password: string}): Promise<UserCredential> {
-    return await signInWithEmailAndPassword(auth, email, password);
+    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+    console.log(userCredential);
+    return userCredential
   }
 
   async register({email, password, firstName, lastName}: {email: string, password: string, firstName: string, lastName: string}): Promise<User> {
