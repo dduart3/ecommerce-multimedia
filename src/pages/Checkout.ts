@@ -31,6 +31,7 @@ export class CheckoutPage extends Page {
     if (stripe) {
       this.container.innerHTML = /*html*/`
         <app-header></app-header>
+        <div class="container flex p-16">
         <!-- Create a button that your customers click to complete their purchase. Customize the styling to suit your branding. -->
           <button
             style="background-color:#6772E5;color:#FFF;padding:8px 12px;border:0;border-radius:4px;font-size:1em;cursor:pointer"
@@ -42,6 +43,7 @@ export class CheckoutPage extends Page {
           </button>
 
           <div id="error-message"></div>
+          </div>
       `;
       const checkoutButton = document.getElementById('checkout-button-price_1QHzNWIyj0lnLLZf1dbHp5Fx');
       checkoutButton?.addEventListener('click', function () {
