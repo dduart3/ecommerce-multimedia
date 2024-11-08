@@ -5,6 +5,8 @@ import { CheckoutPage } from '../pages/Checkout';
 import { UserProfilePage } from '../pages/UserProfile';
 import { OrderHistoryPage } from '../pages/OrderHistory';
 import { NotFoundPage } from '../pages/NotFound';
+import { LoginPage } from '../pages/LoginPage';
+import { RegisterPage } from '../pages/RegisterPage';
 
 export class Router {
   private container: HTMLElement;
@@ -22,7 +24,9 @@ export class Router {
       ['/cart', CartPage],
       ['/checkout', CheckoutPage],
       ['/profile', UserProfilePage],
-      ['/orders', OrderHistoryPage]
+      ['/orders', OrderHistoryPage],
+      ['/Login', LoginPage],
+      ['/Register', RegisterPage],
     ]);
 
     this.initializeRouter();

@@ -23,21 +23,6 @@ export class StripeService {
     }
     console.log('Stripe initialized successfully');
   }
-
-
-  async redirectToCheckout(sessionId: string) {
-    if (!this.stripe) {
-      throw new Error('Stripe not initialized');
-    }
-    
-    const result = await this.stripe.redirectToCheckout({
-      sessionId: sessionId,
-    });
-
-    if (result.error) {
-      throw new Error(result.error.message);
-    }
-  }
 }
 
 

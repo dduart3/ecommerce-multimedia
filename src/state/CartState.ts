@@ -35,17 +35,26 @@ export class CartState {
     return this.cartController.getFormattedTotal();
   }
 
-  addToCart(product: Product, quantity: number = 1) {
-    this.cartController.addToCart(product, quantity);
-    this.updateCartCount();
+  addToCart(product: Product, quantity: number = 1): void {
+    const currentItem = this.cartController.getItems().get(product.id);
+    const currentQuantity = currentItem ? currentItem.quantity : 0;
+    
+    if (currentQuantity + quantity <= product.stock) {
+      this.cartController.addToCart(product, quantity);
+      this.updateCartCount();
+    }
   }
 
-  
   updateQuantity(productId: string, quantity: number): void {
-    this.cartController.updateQuantity(productId, quantity);
-    this.updateCartCount();
+    const items = this.cartController.getItems();
+    const item = items.get(productId);
+    
+    if (item && quantity <= item.product.stock && quantity > 0) {
+      this.cartController.updateQuantity(productId, quantity);
+      this.updateCartCount();
+    }
   }
-
+  
   removeFromCart(productId: string) {
     this.cartController.removeFromCart(productId);
     this.updateCartCount();
