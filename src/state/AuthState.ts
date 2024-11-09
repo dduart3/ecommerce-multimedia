@@ -1,7 +1,8 @@
 import { AuthController } from '../controllers/AuthController';
-import { validateUserData,OperationResult, validatePassword, validateEmail  } from '../utils/validators';
+import {   AuthOperationResult, validateLoginData  } from '../utils/validators';
 import { UserState } from './UserState';
 import { auth } from '../config/firebase';
+import { ILoginData } from '../interfaces/Auth';
 
 export class AuthState {
   private static instance: AuthState;
@@ -27,37 +28,36 @@ export class AuthState {
     return this.isAuthenticated;
   }
 
-  async login({email, password}: {email: string, password: string}): Promise<OperationResult> {
-    const emailValidationResult = validateEmail(email);
-    const passwordValidationResult = validatePassword(password);
+  async login(loginData: ILoginData): Promise<AuthOperationResult> {
+    const loginValidationResult = validateLoginData(loginData);
+    if (loginValidationResult !== AuthOperationResult.SUCCESS) return loginValidationResult;
 
-    if (emailValidationResult !== OperationResult.Success) return emailValidationResult;
-    if (passwordValidationResult !== OperationResult.Success) return passwordValidationResult;
-
-     await this.authController.login({email, password})
+     await this.authController.login(loginData)
       .then(() => {
         this.isAuthenticated = true;
         this.notifySubscribers();
-      });
+      }).catch((error) => {
+        console.error('Error logging in:', error);
+        //return OperationResult.UnknownError;
+      })
 
 
-      return OperationResult.Success;
+      return AuthOperationResult.SUCCESS;
   }
 
-  async register({email, password, firstName, lastName}: {email: string, password: string, firstName: string, lastName:string}): Promise<OperationResult> {
-    const userDataValidationResult = validateUserData({email, firstName, lastName});
-    const passwordValidationResult = validatePassword(password);
-
-    if (userDataValidationResult !== OperationResult.Success) return userDataValidationResult;
-    if (passwordValidationResult !== OperationResult.Success) return passwordValidationResult;
+  async register({email, password, firstName, lastName}: {email: string, password: string, firstName: string, lastName:string}): Promise<AuthOperationResult> {
+    
 
     await this.authController.register({email, password, firstName, lastName})
       .then(() => {
         this.isAuthenticated = true;
         this.notifySubscribers();
+      }).catch((error) => {
+        console.error('Error registering user:', error);
+        //return OperationResult.UnknownError;
       });
       
-      return OperationResult.Success;
+      return AuthOperationResult.SUCCESS;
   }
 
   async logout(): Promise<void> {

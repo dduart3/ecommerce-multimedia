@@ -1,6 +1,6 @@
 import { Page } from './Page';
 import { AuthState } from '../state/AuthState';
-import { OperationResult } from '../utils/validators';
+import { AuthOperationResult } from '../utils/validators';
 
 export class LoginPage extends Page {
     private authState: AuthState;
@@ -55,10 +55,9 @@ export class LoginPage extends Page {
                                 class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
                                 placeholder="Correo Electrónico"
                                 />
-                                <p id="email-error" class="mt-2 text-sm text-red-600"></p>
                             </div>
                             <div>
-                                <label for="password" class="sr-only">Password</label>
+                                <label for="password" class="sr-only">Contraseña</label>
                                 <input
                                 id="password"
                                 name="password"
@@ -68,7 +67,6 @@ export class LoginPage extends Page {
                                 class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
                                 placeholder="Contraseña"
                                 />
-                                <p id="password-error" class="mt-2 text-sm text-red-600"></p>
                 </div>
             </div>
             
@@ -109,15 +107,10 @@ export class LoginPage extends Page {
     const emailInput = document.getElementById('email-address') as HTMLInputElement;
     const passwordInput = document.getElementById('password') as HTMLInputElement;
     const submitButton = document.getElementById('submit-button') as HTMLButtonElement;
-    const emailError = document.getElementById('email-error') as HTMLParagraphElement;
-    const passwordError = document.getElementById('password-error') as HTMLParagraphElement;
+    
 
     formElement.addEventListener('submit', async (e) => {
       e.preventDefault();
-      
-      // Clear previous error messages
-      emailError.textContent = '';
-      passwordError.textContent = '';
       
       // Disable submit button while processing
       submitButton.disabled = true;
@@ -127,20 +120,11 @@ export class LoginPage extends Page {
         password: passwordInput.value
       });
 
-      if (result === OperationResult.Success) {
+      if (result === AuthOperationResult.SUCCESS) {
         //window.location.href = '/'; // Redirect to home page after successful login
       } else {
         // Handle different error cases
-        switch(result) {
-          case OperationResult.InvalidEmailFormat:
-            emailError.textContent = 'Por favor introduce un correo electrónico válido';
-            break;
-          case OperationResult.InvalidPasswordFormat:
-            passwordError.textContent = 'Por favor introduce una contraseña válida';
-            break;
-          default:
-            passwordError.textContent = 'Error desconocido';
-        }
+
       }
 
       submitButton.disabled = false;
