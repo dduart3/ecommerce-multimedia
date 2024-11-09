@@ -1,7 +1,7 @@
 import { UserCredential } from 'firebase/auth';
 import { AuthService } from '../services/AuthService';
 import { User } from '../models/User';
-import { ILoginData } from '../interfaces/Auth';
+import { ILoginData, IRegisterData } from '../interfaces/Auth';
 
 
 export class AuthController {
@@ -15,8 +15,8 @@ export class AuthController {
     return this.authService.login(loginData);
   }
 
-  async register({email, password, firstName, lastName}: {email: string, password: string, firstName: string, lastName: string}): Promise<User> {
-    return this.authService.register({email, password, firstName, lastName});
+  async register(registerData: IRegisterData): Promise<User> {
+    return this.authService.register(registerData);
   }
 
   async logout(): Promise<void> {

@@ -1,6 +1,7 @@
 import { Page } from "./Page";
 import { AuthState } from "../state/AuthState";
-import { OperationResult } from "../utils/validators";
+import { AuthOperationResult, AuthOperationResultMessage } from "../utils/validators";
+import { showToast } from "../utils/toast";
 
 export class RegisterPage extends Page {
   private authState: AuthState;
@@ -42,7 +43,6 @@ export class RegisterPage extends Page {
             </label>
             <input id="firstName" name="firstName" type="text" autocomplete="given-name" required
               class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-800 focus:border-blue-800 sm:text-sm" />
-            <p id="firstName-error" class="mt-2 text-sm text-red-600 error-message"></p>
           </div>
           <div class="flex-1">
             <label for="lastName" class="block text-sm font-medium text white">
@@ -50,7 +50,6 @@ export class RegisterPage extends Page {
             </label>
             <input id="lastName" name="lastName" type="text" autocomplete="family-name" required
               class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-800 focus:border-blue-800 sm:text-sm" />
-            <p id="lastName-error" class="mt-2 text-sm text-red-600 error-message"></p>
           </div>
         </div>
 
@@ -60,7 +59,6 @@ export class RegisterPage extends Page {
           </label>
           <input id="email" name="email" type="email" autocomplete="email" required
             class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-800 focus:border-blue-800 sm:text-sm" />
-          <p id="email-error" class="mt-2 text-sm text-red-600 error-message"></p>
         </div>
 
         <div>
@@ -74,7 +72,6 @@ export class RegisterPage extends Page {
 
             </button>
           </div>
-          <p id="password-error" class="mt-2 text-sm text-red-600 error-message"></p>
         </div>
 
         <div>
@@ -89,7 +86,6 @@ export class RegisterPage extends Page {
 
             </button>
           </div>
-          <p id="confirmPassword-error" class="mt-2 text-sm text-red-600 error-message"></p>
         </div>
 
         <div>
@@ -110,14 +106,11 @@ export class RegisterPage extends Page {
 
     const form = document.querySelector("form");
     const emailInput = document.getElementById("email") as HTMLInputElement;
-    const passwordInput = document.getElementById(
-      "password"
-    ) as HTMLInputElement;
+    const passwordInput = document.getElementById("password") as HTMLInputElement;
+    const confirmPasswordInput = document.getElementById("confirmPassword") as HTMLInputElement;
     const firstNameInput = document.getElementById("firstName") as HTMLInputElement;
     const lasttNameInput = document.getElementById("lastName") as HTMLInputElement;
-    const submitButton = document.querySelector(
-      'button[type="submit"]'
-    ) as HTMLButtonElement;
+    const submitButton = document.querySelector('button[type="submit"]') as HTMLButtonElement;
 
     form?.addEventListener("submit", async (e) => {
       e.preventDefault();
@@ -126,32 +119,21 @@ export class RegisterPage extends Page {
       const result = await this.authState.register({
         email: emailInput.value,
         password: passwordInput.value,
+        confirmPassword: confirmPasswordInput.value,
         firstName: firstNameInput.value,
         lastName: lasttNameInput.value,
       });
 
-      if (result === OperationResult.Success) {
+      if (result === AuthOperationResult.SUCCESS) {
+        showToast({message: AuthOperationResultMessage[result], type: "success"});
         window.location.href = "/";
       } else {
-        // Handle different validation errors
-        this.showError(result);
+        showToast({message: AuthOperationResultMessage[result], type: "error"});
       }
 
       submitButton.disabled = false;
     });
   }
 
-  private showError(error: OperationResult): void {
-    /* 
-const errorMessages = {
-  [OperationResult.InvalidEmailFormat]: 'Invalid email format',
-  [OperationResult.InvalidPasswordFormat]: 'Password must be at least 6 characters',
-  [OperationResult.InvalidName]: 'Name is required'
-};
-
-const errorElement = document.querySelector('.error-message');
-if (errorElement) {
-  errorElement.textContent = errorMessages[error] || 'Registration failed';
-  */
-  }
 }
+

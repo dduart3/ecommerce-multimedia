@@ -1,6 +1,7 @@
 import { Page } from './Page';
 import { AuthState } from '../state/AuthState';
-import { AuthOperationResult } from '../utils/validators';
+import { AuthOperationResult, AuthOperationResultMessage } from '../utils/validators';
+import { showToast } from '../utils/toast';
 
 export class LoginPage extends Page {
     private authState: AuthState;
@@ -121,10 +122,10 @@ export class LoginPage extends Page {
       });
 
       if (result === AuthOperationResult.SUCCESS) {
-        //window.location.href = '/'; // Redirect to home page after successful login
+        showToast({message: AuthOperationResultMessage[result], type: "success"});
+        window.location.href = "/";
       } else {
-        // Handle different error cases
-
+        showToast({message: AuthOperationResultMessage[result], type: "error"});
       }
 
       submitButton.disabled = false;
