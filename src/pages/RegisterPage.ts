@@ -1,6 +1,15 @@
-import { Page } from './Page';
+import { Page } from "./Page";
+import { AuthState } from "../state/AuthState";
+import { OperationResult } from "../utils/validators";
+
 export class RegisterPage extends Page {
-  
+  private authState: AuthState;
+
+  constructor(containerId: string) {
+    super(containerId);
+    this.authState = AuthState.getInstance();
+  }
+
   async render(): Promise<void> {
     this.container.innerHTML = /*html*/ `
       <div class="flex min-h-screen bg-stone-950">
@@ -99,13 +108,50 @@ export class RegisterPage extends Page {
 </div>
     `;
 
-    
-  
+    const form = document.querySelector("form");
+    const emailInput = document.getElementById("email") as HTMLInputElement;
+    const passwordInput = document.getElementById(
+      "password"
+    ) as HTMLInputElement;
+    const firstNameInput = document.getElementById("firstName") as HTMLInputElement;
+    const lasttNameInput = document.getElementById("lastName") as HTMLInputElement;
+    const submitButton = document.querySelector(
+      'button[type="submit"]'
+    ) as HTMLButtonElement;
 
- 
+    form?.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      submitButton.disabled = true;
 
-  
+      const result = await this.authState.register({
+        email: emailInput.value,
+        password: passwordInput.value,
+        firstName: firstNameInput.value,
+        lastName: lasttNameInput.value,
+      });
 
- 
+      if (result === OperationResult.Success) {
+        window.location.href = "/";
+      } else {
+        // Handle different validation errors
+        this.showError(result);
+      }
 
-}}
+      submitButton.disabled = false;
+    });
+  }
+
+  private showError(error: OperationResult): void {
+    /* 
+const errorMessages = {
+  [OperationResult.InvalidEmailFormat]: 'Invalid email format',
+  [OperationResult.InvalidPasswordFormat]: 'Password must be at least 6 characters',
+  [OperationResult.InvalidName]: 'Name is required'
+};
+
+const errorElement = document.querySelector('.error-message');
+if (errorElement) {
+  errorElement.textContent = errorMessages[error] || 'Registration failed';
+  */
+  }
+}

@@ -11,25 +11,24 @@ export class AuthService {
 
   async login({email, password}:{email: string, password: string}): Promise<UserCredential> {
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
-    console.log(userCredential);
     return userCredential
   }
 
   async register({email, password, firstName, lastName}: {email: string, password: string, firstName: string, lastName: string}): Promise<User> {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-    const user = userCredential.user;
+    
 
-    const newUser = new User({
-      id: user.uid,
+    const newUser = {
+      uid: userCredential.user.uid,
       email: email,
       firstName: firstName,
       lastName: lastName,
       orders: []
-    });
+    };
     
     try {
-      await this.firebaseService.addDocument('users', newUser);
-      return newUser as User;
+      const userId = await this.firebaseService.addDocument('users', Object.assign({}, newUser));
+      return new User({id: userId, ...newUser})  as User;
     } catch (error: any) {
       throw new Error(`Failed to create user: ${error.message}`);
     }

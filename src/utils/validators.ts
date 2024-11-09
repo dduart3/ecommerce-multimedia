@@ -6,6 +6,7 @@ export enum OperationResult {
   NameTooShort = "Nombre y apellido deben tener al menos 2 caracteres",
   NameTooLong = "Nombre y apellido deben tener no pueden tener mas de 30 caracteres",
   InvalidPasswordFormat = "La contraseña debe tener al menos 6 caracteres, debe contener al menos una letra mayúscula, una letra minúscula, un número y un carácter especial",
+  InvalidName = "InvalidName",
 }
 
 export function validateUserData(userData: Partial<IUser>): OperationResult {

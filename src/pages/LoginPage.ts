@@ -104,9 +104,7 @@ export class LoginPage extends Page {
 </div>
 </div>
 </div>
-`;
-
-    
+`;    
    const formElement = document.getElementById('login-form') as HTMLFormElement;
     const emailInput = document.getElementById('email-address') as HTMLInputElement;
     const passwordInput = document.getElementById('password') as HTMLInputElement;

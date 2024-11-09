@@ -8,8 +8,8 @@ export class UserController {
     this.userService = new UserService();
   }
 
-  async getUser(id: string): Promise<User> {
-    return this.userService.getUser(id);
+  async getUser(uid: string): Promise<User> {
+    return this.userService.getUser(uid);
   }
 
   async updateUser(id: string, userData: User): Promise<User> {

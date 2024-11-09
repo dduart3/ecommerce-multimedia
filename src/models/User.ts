@@ -2,6 +2,7 @@ import { IUser } from '../interfaces/IUser';
 
 export class User implements IUser {
   id: string;
+  uid: string;
   email: string;
   firstName: string;
   lastName: string;
@@ -9,6 +10,7 @@ export class User implements IUser {
 
   constructor(data: IUser) {
     this.id = data.id;
+    this.uid = data.uid;
     this.email = data.email;
     this.firstName = data.firstName;
     this.lastName = data.lastName;
@@ -22,6 +24,7 @@ export class User implements IUser {
   toJSON(): IUser {
     return {
       id: this.id,
+      uid: this.uid,
       email: this.email,
       firstName: this.firstName,
       lastName: this.lastName,

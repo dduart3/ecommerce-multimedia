@@ -19,6 +19,20 @@ export class FirebaseService {
     return docSnap.exists() ? { id: docSnap.id, ...docSnap.data() } : null;
   }
 
+  async getDocumentByField(collectionName: string, field: string, value: any) {
+    const q = query(collection(db, collectionName), where(field, '==', value));
+    const querySnapshot = await getDocs(q);
+    
+    if (querySnapshot.empty) {
+        return null;
+    }
+    return {
+        id: querySnapshot.docs[0].id,
+        ...querySnapshot.docs[0].data()
+    };
+}
+
+
   async getCollection(collectionName: string) {
     const querySnapshot = await getDocs(collection(db, collectionName));
     return querySnapshot.docs.map(doc => ({
