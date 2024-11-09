@@ -1,6 +1,6 @@
 import { CartService } from '../services/CartService';
 import { Product } from '../models/Product';
-import { ICartItem } from '../interfaces/ICart';
+import { ICartItem } from '../interfaces/Cart';
 
 export class CartController {
   private cartService: CartService;

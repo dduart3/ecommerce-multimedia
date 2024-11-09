@@ -1,6 +1,6 @@
 import { CartController } from '../controllers/CartController';
 import { Product } from '../models/Product';
-import { ICartItem } from '../interfaces/ICart';
+import { ICartItem } from '../interfaces/Cart';
 
 export class CartState {
   private static instance: CartState;

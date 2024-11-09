@@ -1,4 +1,4 @@
-import { IProduct } from "./IProduct";
+import { IProduct } from "./Product";
 
 export interface ICart {
   items: Map<string, ICartItem>;

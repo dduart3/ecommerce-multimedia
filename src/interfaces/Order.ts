@@ -1,4 +1,4 @@
-import { ICartItem } from "./ICart";
+import { ICartItem } from "./Cart";
 export enum OrderStatus {
   PENDING = 'pendiente',
   COMPLETED = 'completada',

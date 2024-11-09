@@ -1,5 +1,5 @@
-import { ICart, ICartItem } from '../interfaces/ICart';
-import { IProduct } from '../interfaces/IProduct';
+import { ICart, ICartItem } from '../interfaces/Cart';
+import { IProduct } from '../interfaces/Product';
 
 export class Cart implements ICart {
   items: Map<string, ICartItem>;

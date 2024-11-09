@@ -1,5 +1,5 @@
-import { ICartItem } from '../interfaces/ICart';
-import { IOrder, OrderStatus  } from '../interfaces/IOrder';
+import { ICartItem } from '../interfaces/Cart';
+import { IOrder, OrderStatus  } from '../interfaces/Order';
 
 export class Order implements IOrder {
   id: string;

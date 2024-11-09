@@ -1,6 +1,6 @@
 import { Component } from '../Component';
 import { CartState } from '../../state/CartState';
-import { ICartItem } from '../../interfaces/ICart';
+import { ICartItem } from '../../interfaces/Cart';
 import { CartItem } from './CartItem';
 export class CartComponent extends Component {
   
