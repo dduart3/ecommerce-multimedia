@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "devDependencies": {
+    "@types/toastify-js": "^1.12.3",
     "autoprefixer": "^10.4.20",
     "postcss": "^8.4.47",
     "tailwindcss": "^3.4.14",
@@ -23,6 +24,7 @@
     "@fontsource/oxygen": "^5.1.0",
     "@stripe/stripe-js": "^4.9.0",
     "firebase": "^11.0.1",
-    "swiper": "^11.1.14"
+    "swiper": "^11.1.14",
+    "toastify-js": "^1.12.0"
   }
 }
