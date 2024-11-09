@@ -2,7 +2,7 @@ import { auth } from '../config/firebase';
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, UserCredential } from 'firebase/auth';
 import { FirebaseService } from './FirebaseService';
 import { User } from '../models/User';
-import { ILoginData } from '../interfaces/Auth';
+import { ILoginData, IRegisterData } from '../interfaces/Auth';
 export class AuthService {
   private firebaseService: FirebaseService;
 
@@ -16,9 +16,9 @@ export class AuthService {
     return userCredential;
   }
 
-  async register({email, password, firstName, lastName}: {email: string, password: string, firstName: string, lastName: string}): Promise<User> {
+  async register(registerData: IRegisterData): Promise<User> {
+    const { email, password, firstName, lastName } = registerData;
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-    
 
     const newUser = {
       uid: userCredential.user.uid,
