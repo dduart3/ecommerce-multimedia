@@ -41,7 +41,7 @@ A modern e-commerce platform built with TypeScript and Firebase, featuring real-
 src/ ├── components/ │ ├── cart/ │ ├── common/ │ └── product/ ├── controllers/ ├── interfaces/ ├── models/ ├── pages/ ├── services/ ├── state/ └── utils/
 
 ## Getting Started
-
+```
 1. Clone the repository
 bash
 git clone https://github.com/yourusername/hadesx-ecommerce.git
