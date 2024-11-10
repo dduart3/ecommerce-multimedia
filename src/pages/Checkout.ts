@@ -26,7 +26,7 @@ export class CheckoutPage extends Page {
     this.container.innerHTML = '';
     this.container.appendChild(new Loader());
 
-    await this.validateCheckoutSession();
+    await this.validateSession();
     await this.redirectToCheckout();
   }
 
@@ -34,11 +34,11 @@ export class CheckoutPage extends Page {
     const stripe = this.stripeService.stripe;
     if (stripe) {
       const lineItems = this.getLineItems();
-
         stripe.redirectToCheckout({
           lineItems,
           mode: 'payment',
           billingAddressCollection: 'required',
+          customerEmail: this.userState.getCurrentUser()?.email,
           successUrl: window.location.protocol + '//localhost:5173/',
           cancelUrl: window.location.protocol + '//localhost:5173/',
         })
@@ -50,7 +50,7 @@ export class CheckoutPage extends Page {
       }
   }
 
-  private async validateCheckoutSession(): Promise<void> {
+  private async validateSession(): Promise<void> {
     const currentUser = this.userState.getCurrentUser();
     if(!currentUser){
       window.navigateTo('/login');
