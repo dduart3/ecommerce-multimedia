@@ -26,23 +26,8 @@ export class CheckoutPage extends Page {
     this.container.innerHTML = '';
     this.container.appendChild(new Loader());
 
-    const currentUser = this.userState.getCurrentUser();
-    if(!currentUser){
-      window.navigateTo('/login');
-      showToast({ message: 'Necesitas iniciar sesión para poder comprar', type: 'error' });
-      if (this.unsubscribeAuth) this.unsubscribeAuth();
-      return;
-    }
-
-    //await this.redirectToCheckout();
-    console.log(currentUser);
-    const checkouts = await this.stripeService.getCheckouts(currentUser.email);
-    console.log(checkouts);
-    const lastCheckoutId = checkouts[0].id;
-    
-    const lineItems = await this.stripeService.getCheckoutLineItems(lastCheckoutId);
-
-    console.log(lineItems);
+    await this.validateCheckoutSession();
+    await this.redirectToCheckout();
   }
 
   private async redirectToCheckout(): Promise<void> {
@@ -53,26 +38,33 @@ export class CheckoutPage extends Page {
         stripe.redirectToCheckout({
           lineItems,
           mode: 'payment',
-          
-          /*
-           * Do not rely on the redirect to the successUrl for fulfilling
-           * purchases, customers may not always reach the success_url after
-           * a successful payment.
-           * Instead use one of the strategies described in
-           * https://docs.stripe.com/payments/checkout/fulfill-orders
-           */
+          billingAddressCollection: 'required',
           successUrl: window.location.protocol + '//localhost:5173/',
           cancelUrl: window.location.protocol + '//localhost:5173/',
         })
         .then(function (result) {
           if (result.error) {
-            /*
-             * If `redirectToCheckout` fails due to a browser or network
-             * error, display the localized error message to your customer.
-             */
+            showToast({ message: result.error.message || 'Ha ocurrido un error, por favor intente de nuevo mas tarde.', type: 'error' });
           }
         });
       }
+  }
+
+  private async validateCheckoutSession(): Promise<void> {
+    const currentUser = this.userState.getCurrentUser();
+    if(!currentUser){
+      window.navigateTo('/login');
+      showToast({ message: 'Necesitas iniciar sesión para poder comprar', type: 'error' });
+      if (this.unsubscribeAuth) this.unsubscribeAuth();
+      return;
+    }
+
+    if(this.cartState.getItems().size === 0){
+      window.navigateTo('/products');
+      showToast({ message: 'No tienes productos en el carrito', type: 'error' });
+      if (this.unsubscribeAuth) this.unsubscribeAuth();
+      return;
+    }
   }
 
   private getLineItems(): {price: string, quantity: number}[] {
@@ -82,5 +74,4 @@ export class CheckoutPage extends Page {
       quantity: item.quantity,
     }));
   } 
-  
 }
