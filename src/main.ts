@@ -3,6 +3,7 @@ import './components/cart/CartItem';
 import './components/cart/CartComponent';
 import "./components/common/Header";
 import './components/common/Footer';
+import './components/common/ScrollToTop';
 import { StripeService } from "./services/StripeService";
 import { CartState } from "./state/CartState";
 import { OrderController } from './controllers/OrderController'
