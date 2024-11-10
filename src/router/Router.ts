@@ -8,6 +8,9 @@ import { RegisterPage } from '../pages/RegisterPage';
 import { OrdersPage } from '../pages/OrdersPage';
 import { About } from '../pages/About';
 
+declare global {
+  interface Window { navigateTo: (path: string) => void; }
+}
 export class Router {
   private container: HTMLElement;
   private routes: Map<string, any>;
@@ -42,7 +45,7 @@ export class Router {
         this.navigateTo(target.getAttribute('href') || '/');
       }
     });
-
+    (<any>window).navigateTo = this.navigateTo.bind(this);
     this.handleRoute();
   }
 
