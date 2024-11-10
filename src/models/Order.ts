@@ -1,10 +1,9 @@
-import { ICartItem } from '../interfaces/Cart';
-import { IOrder, OrderStatus  } from '../interfaces/Order';
+import { IOrder, IOrderItem, OrderStatus  } from '../interfaces/Order';
 
 export class Order implements IOrder {
   id: string;
   userId: string;
-  items: ICartItem[];
+  items: IOrderItem[];
   total: number;
   status: OrderStatus;
   createdAt: Date;
@@ -18,12 +17,8 @@ export class Order implements IOrder {
     this.createdAt = new Date(data.createdAt);
   }
 
-  updateStatus(newStatus: OrderStatus): void {
-    this.status = newStatus;
-  }
-
-  calculateTotal(): number {
-    return this.items.reduce((sum, item) => sum + (item.product.price * item.quantity), 0);
+  getTotal(): number {
+    return this.total;
   }
 
   toJSON(): IOrder {
