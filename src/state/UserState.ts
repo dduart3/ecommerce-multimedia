@@ -32,6 +32,11 @@ export class UserState {
     this.notifySubscribers();
   }
 
+  async clearUserProfile(): Promise<void> {
+    this.currentUser = null;
+    this.notifySubscribers();
+  }
+
   subscribe(callback: (user: User | null) => void) {
     this.subscribers.push(callback);
     callback(this.currentUser);
