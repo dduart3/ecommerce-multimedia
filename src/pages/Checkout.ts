@@ -45,6 +45,7 @@ export class CheckoutPage extends Page {
         .then(function (result) {
           if (result.error) {
             showToast({ message: result.error.message || 'Ha ocurrido un error, por favor intente de nuevo mas tarde.', type: 'error' });
+            window.navigateTo('/');
           }
         });
       }
