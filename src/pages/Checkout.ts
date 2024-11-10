@@ -1,35 +1,48 @@
 import { Page } from './Page';
 import { StripeService } from '../services/StripeService';
 import { CartState } from '../state/CartState';
+import { UserState } from '../state/UserState';
+import { AuthState } from '../state/AuthState';
+import { Loader } from '../components/common/Loader';
+import { showToast } from '../utils/toast';
 
 export class CheckoutPage extends Page {
   private stripeService: StripeService;
   private cartState: CartState;
+  private authState: AuthState;
+  private userState: UserState;
+  private unsubscribeAuth: (() => void) | null = null;
 
   constructor(containerId: string) {
     super(containerId);
     this.stripeService = StripeService.getInstance();
     this.cartState = CartState.getInstance();
+    this.authState = AuthState.getInstance();
+    this.userState = UserState.getInstance();
+    this.unsubscribeAuth = this.authState.subscribe(() => this.render());
   }
 
   async render(): Promise<void> {
-    // Initial loading state
-    this.container.innerHTML = /*html */ `
-<div class="h-screen w-full bg-white flex items-center justify-center">
-    <div class="text-center">
-        <div role="status">
-          <img src="./src/assets/images/logoblack.png" width="400px"/>
-            <svg aria-hidden="true" class="inline  w-12 h-12 text-gray-200 animate-spin dark:text-gray-500 fill-black" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
-                <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 215619   .841C84 .9175   .9121   .7997   .2913   .1811   .8758C89 .083   .2158   .5421   .6781   .9676   .0409Z" fill="currentFill"/>
-            </svg>
-            <span class="sr-only text-dark">Cargando...</span>
-        </div>
-    </div>
-</div>
-    `;
+    this.container.innerHTML = '';
+    this.container.appendChild(new Loader());
 
-    await this.redirectToCheckout();
+    const currentUser = this.userState.getCurrentUser();
+    if(!currentUser){
+      window.navigateTo('/login');
+      showToast({ message: 'Necesitas iniciar sesión para poder comprar', type: 'error' });
+      if (this.unsubscribeAuth) this.unsubscribeAuth();
+      return;
+    }
+
+    //await this.redirectToCheckout();
+    console.log(currentUser);
+    const checkouts = await this.stripeService.getCheckouts(currentUser.email);
+    console.log(checkouts);
+    const lastCheckoutId = checkouts[0].id;
+    
+    const lineItems = await this.stripeService.getCheckoutLineItems(lastCheckoutId);
+
+    console.log(lineItems);
   }
 
   private async redirectToCheckout(): Promise<void> {
@@ -40,6 +53,7 @@ export class CheckoutPage extends Page {
         stripe.redirectToCheckout({
           lineItems,
           mode: 'payment',
+          
           /*
            * Do not rely on the redirect to the successUrl for fulfilling
            * purchases, customers may not always reach the success_url after
@@ -68,4 +82,5 @@ export class CheckoutPage extends Page {
       quantity: item.quantity,
     }));
   } 
+  
 }

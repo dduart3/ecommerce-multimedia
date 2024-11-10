@@ -92,6 +92,7 @@ export class AuthState {
         await this.userState.loadUserProfile(user.uid);
         this.isAuthenticated = true;
       } else {
+        await this.userState.clearUserProfile();
         this.isAuthenticated = false;
       }
       this.notifySubscribers();
