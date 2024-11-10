@@ -38,3 +38,20 @@ A modern e-commerce platform built with TypeScript and Firebase, featuring real-
 - TailwindCSS
 
 ## Project Structure
+src/ ├── components/ │ ├── cart/ │ ├── common/ │ └── product/ ├── controllers/ ├── interfaces/ ├── models/ ├── pages/ ├── services/ ├── state/ └── utils/
+
+## Getting Started
+
+1. Clone the repository
+```bash
+git clone https://github.com/yourusername/hadesx-ecommerce.git
+
+2. Install dependencies
+npm run dev
+
+3. Set up Firebase
+Create a Firebase project
+Add your Firebase config to src/config/firebase.ts
+
+4.Run the development server
+npm run dev
