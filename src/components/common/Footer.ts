@@ -101,4 +101,4 @@ constructor(){
 }
 
 }
-customElements.define('app-footer',Footer);
+customElements.define('app-footer', Footer);
