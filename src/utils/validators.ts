@@ -31,23 +31,22 @@ export const AuthOperationResultMessage = {
 export function validateRegisterData(registerData: IRegisterData): AuthOperationResult {
   const { email, password, confirmPassword, firstName, lastName } = registerData;
   
-  const isEmailValid = validateEmail(email);
-  const isPasswordValid = validatePassword(password);
-  const isPasswordConfirmed = validatePasswordConfirmation(password, confirmPassword);
   const validateNameResult = validateName(firstName, lastName) ;
-  
   if (validateNameResult !== AuthOperationResult.SUCCESS){
     return validateNameResult;
   }
 
+  const isEmailValid = validateEmail(email);
   if (!isEmailValid){
     return AuthOperationResult.INVALID_EMAIL_FORMAT;
   }
-  
+
+  const isPasswordValid = validatePassword(password);
   if (!isPasswordValid){
     return AuthOperationResult.INVALID_PASSWORD_FORMAT;
   }
 
+  const isPasswordConfirmed = validatePasswordConfirmation(password, confirmPassword);
   if (!isPasswordConfirmed){
     return AuthOperationResult.INVALID_PASSWORD_CONFIRMATION;
   }
@@ -57,12 +56,11 @@ export function validateRegisterData(registerData: IRegisterData): AuthOperation
 
 export function validateLoginData(loginData: ILoginData): AuthOperationResult {
   const isEmailValid = validateEmail(loginData.email);
-  const isPasswordValid = validatePassword(loginData.password);
-
   if (!isEmailValid){
     return AuthOperationResult.INVALID_EMAIL_FORMAT;
   }
   
+  const isPasswordValid = validatePassword(loginData.password);
   if (!isPasswordValid){
     return AuthOperationResult.INVALID_PASSWORD_FORMAT;
   }
