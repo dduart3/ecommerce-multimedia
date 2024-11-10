@@ -1,5 +1,5 @@
+import { IProduct } from '../interfaces/Product';
 import { Cart } from '../models/Cart';
-import { Product } from '../models/Product';
 
 export class CartService {
   private cart: Cart;
@@ -8,7 +8,7 @@ export class CartService {
     this.cart = new Cart(userId);
   }
 
-  addItem(product: Product, quantity: number = 1) {
+  addItem(product: IProduct, quantity: number = 1) {
     this.cart.addItem(product, quantity);
   }
 

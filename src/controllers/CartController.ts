@@ -1,6 +1,7 @@
 import { CartService } from '../services/CartService';
 import { Product } from '../models/Product';
 import { ICartItem } from '../interfaces/Cart';
+import { IProduct } from '../interfaces/Product';
 
 export class CartController {
   private cartService: CartService;
@@ -13,7 +14,7 @@ export class CartController {
     return this.cartService.getItems();
   }
 
-  addToCart(product: Product, quantity: number = 1) {
+  addToCart(product: IProduct, quantity: number = 1) {
     this.cartService.addItem(product, quantity);
   }
 

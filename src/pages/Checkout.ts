@@ -1,15 +1,15 @@
 import { Page } from './Page';
 import { StripeService } from '../services/StripeService';
-import { CartService } from '../services/CartService';
+import { CartState } from '../state/CartState';
 
 export class CheckoutPage extends Page {
   private stripeService: StripeService;
-  private cartService: CartService;
+  private cartState: CartState;
 
   constructor(containerId: string) {
     super(containerId);
     this.stripeService = StripeService.getInstance();
-    this.cartService = new CartService();
+    this.cartState = CartState.getInstance();
   }
 
   async render(): Promise<void> {
@@ -29,38 +29,16 @@ export class CheckoutPage extends Page {
 </div>
     `;
 
-    // Wait for Stripe to be initialized
-    await this.initializeStripeElements();
+    await this.redirectToCheckout();
   }
 
-  private async initializeStripeElements() {
-    const stripe = this.stripeService.stripe
-    console.log(stripe);
+  private async redirectToCheckout(): Promise<void> {
+    const stripe = this.stripeService.stripe;
     if (stripe) {
-      this.container.innerHTML = /*html*/`
-        <app-header></app-header>
-        <div class="container flex p-16">
-        <!-- Create a button that your customers click to complete their purchase. Customize the styling to suit your branding. -->
-          <button
-            style="background-color:#6772E5;color:#FFF;padding:8px 12px;border:0;border-radius:4px;font-size:1em;cursor:pointer"
-            id="checkout-button-price_1QHzNWIyj0lnLLZf1dbHp5Fx"
-            role="link"
-            type="button"
-          >
-            Checkout
-          </button>
+      const lineItems = this.getLineItems();
 
-          <div id="error-message"></div>
-          </div>
-      `;
-      const checkoutButton = document.getElementById('checkout-button-price_1QHzNWIyj0lnLLZf1dbHp5Fx');
-      checkoutButton?.addEventListener('click', function () {
-        /*
-         * When the customer clicks on the button, redirect
-         * them to Checkout.
-         */
         stripe.redirectToCheckout({
-          lineItems: [{price: 'price_1QHzNWIyj0lnLLZf1dbHp5Fx', quantity: 3}],
+          lineItems,
           mode: 'payment',
           /*
            * Do not rely on the redirect to the successUrl for fulfilling
@@ -78,17 +56,16 @@ export class CheckoutPage extends Page {
              * If `redirectToCheckout` fails due to a browser or network
              * error, display the localized error message to your customer.
              */
-            const displayError = document.getElementById('error-message');
-
-            if(displayError && result.error.message){
-              displayError.textContent = result.error.message;
-            }
-
-            
           }
         });
-      });
-    
-    }
+      }
   }
+
+  private getLineItems(): {price: string, quantity: number}[] {
+    const items = Array.from(this.cartState.getItems().values()) ;
+    return items.map((item) => ({
+      price: item.product.stripePriceId,
+      quantity: item.quantity,
+    }));
+  } 
 }
