@@ -43,7 +43,7 @@ src/ ├── components/ │ ├── cart/ │ ├── common/ │ └─�
 ## Getting Started
 
 1. Clone the repository
-```bash
+bash
 git clone https://github.com/yourusername/hadesx-ecommerce.git
 
 2. Install dependencies
