@@ -37,8 +37,6 @@ A modern e-commerce platform built with TypeScript and Firebase, featuring real-
 - Custom Components
 - TailwindCSS
 
-## Project Structure
-src/ ├── components/ │ ├── cart/ │ ├── common/ │ └── product/ ├── controllers/ ├── interfaces/ ├── models/ ├── pages/ ├── services/ ├── state/ └── utils/
 
 ## Getting Started
 ```
