@@ -32,7 +32,6 @@ export class Router {
       ['/profile', UserProfilePage],
       ['/orders', OrdersPage],
       ['/process-order', ProcessOrderPage],
-      ['/product-page', ProductPage],
     ]);
 
     this.initializeRouter();
@@ -54,6 +53,14 @@ export class Router {
 
   private async handleRoute() {
     const path = window.location.pathname;
+    
+    if (path.startsWith('/product/')) {
+      const productId = path.split('/product/')[1];
+      const page = new ProductPage(this.container.id, productId);
+      page.render();
+      return;
+    } 
+  
     const PageClass = this.routes.get(path) || NotFoundPage;
     
     if (PageClass && (!this.currentPage || !(this.currentPage instanceof PageClass))) {

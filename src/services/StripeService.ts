@@ -19,16 +19,12 @@ export class StripeService {
     return StripeService.instance;
   }
 
-  async getLastPaymentIntent() {
-    const { data: response } = await stripeApi.get('/payment_intents',  {
-      params: {
-        limit: 1,
-      },
-    });
-    if (!response.data.length) {
+  async getPaymentIntent(paymentIntentId: string) {
+    const { data: response } = await stripeApi.get(`/payment_intents/${paymentIntentId}`);
+    if (!response) {
       return null;
     }
-    return response.data[0] as IPaymentIntent
+    return response as IPaymentIntent
   }
 
   async getLastCheckout(customerEmail: string) {
@@ -39,7 +35,7 @@ export class StripeService {
           email: customerEmail,
         },
         created: {
-          gte: getEpochTimeSinceHoursAgo(30)
+          gte: getEpochTimeSinceHoursAgo(1)
         }
       },
     });
