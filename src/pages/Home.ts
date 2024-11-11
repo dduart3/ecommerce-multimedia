@@ -119,11 +119,11 @@ export class HomePage extends Page {
   <!-- Cards  -->
   <div class="flex gap-3 items-center justify-between px-20 py-24 pt-[150px]">
     <img src="./src/assets/images/Confianza.png"
-      class="cursor-pointer hover:scale-105 ease-in-out transition-transform duration-500">
+      class="hover:scale-105 ease-in-out transition-transform duration-500">
     <img src="./src/assets/images/Comodidad.png"
-      class="cursor-pointer hover:scale-105 ease-in-out transition-transform duration-500">
+      class="hover:scale-105 ease-in-out transition-transform duration-500">
     <img src="./src/assets/images/Inversion.png"
-      class="cursor-pointer hover:scale-105 ease-in-out transition-transform duration-500">
+      class="hover:scale-105 ease-in-out transition-transform duration-500">
   </div>
 
 </div>
@@ -218,7 +218,7 @@ export class HomePage extends Page {
             <p class="font-orbitron font-bold text-[40px] flex items-center h-20 ml-52 ">Productos</p>
             <div class="swiper">
               <!-- Additional required wrapper -->
-              <div class="swiper-wrapper">
+              <div class="swiper-wrapper w-5">
                 <!-- Slides -->
                 <div class="swiper-slide">Slide 1</div>
                 <div class="swiper-slide">Slide 2</div>
