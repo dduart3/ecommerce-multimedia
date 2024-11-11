@@ -196,18 +196,55 @@ export class HomePage extends Page {
 
         <!-- Productos Imagenes  -->
 
-        <div class="flex w-full h-[800px] gap-5 justify-center items-center ml-[-60px]">
+        <div class="flex w-full h-[800px] gap-5 justify-center items-center ml-[-260px]">
 
-          <img src="./src/assets/images/Product1.png" width="470px" class="mt-[-280px]" />
+         
+          <div class="swiper mt-[-100px]">
+              <!-- Additional required wrapper -->
+              <div class="swiper-wrapper w-5 ">
+                <!-- Slides -->
+                <div class="swiper-slide"> <img src="./src/assets/images/Product1.png" width="500px" class="mt-[-3px]" /></div>
+                <div class="swiper-slide"> <img src="./src/assets/images/product-4-populares-home.png" width="500px" class="mt-[-3px]" /></div>
+                <div class="swiper-slide"> <img src="./src/assets/images/product-5-populares-home.png" class="mt-[-3px]" width="500px" /></div>
+                ...
+              </div>
+              <!-- If we need pagination -->
+              <div class="swiper-pagination"></div>
 
-          <div class="mt-[110px]">
+              <!-- If we need navigation buttons -->
+              <div class="swiper-button-prev">
+              <style>
+            .swiper-button-prev{
+            translate: 150%;
+          }
+            </style>
+              </div>
+              <div class="swiper-button-next">
+              <style>
+            .swiper-button-next{
+            translate: -150%;
+          }
+            </style>
+              </div>
+            <style>
+            .swiper{
+            width: 430px;
+            height: 400px;
+          }
+            </style>
+
+            </div>
+
+
+
+          <div class="mt-[110px] ml-[-300px]">
             <p
               class="font-orbitron text-dark font-bold border-2 border-primary align-middle items-center justify-center flex p-2 mb-5">
               Populares</p>
             <img src="./src/assets/images/Product2.png" />
           </div>
 
-          <img src="./src/assets/images/Product3.png" class="mt-[-210px]" />
+          <img src="./src/assets/images/Product3.png" class="mt-[-210px]" class="cursor-pointer z-50" />
 
         </div>
 
@@ -270,10 +307,50 @@ export class HomePage extends Page {
 
 
       <section
-        class="w-full h-[1000px] bg-[url('./src/assets/images/FAQBg.png')] bg-cover bg-center ml-[-7px] flex pt-72 font-orbitron font-bold">
+  class="w-full h-[1000px] bg-[url('./src/assets/images/FAQBg.png')] bg-cover bg-center ml-[-7px] flex justify-center pt-72 font-orbitron font-bold overflow-hidden">
+  
+  <div class="w-[500px] h-[800px] bg-[url('./src/assets/images/FAQ-acordeon-container.png')] bg-no-repeat bg-contain font-krona opacity-90 pr-12 pl-12 text-[18px] font-normal flex flex-col justify-center translate-x-[296px]">
 
-        
-      </section>
+    <details class="mb-4">
+      <summary class="bg-[url('./src/assets/images/FAQ-acordeon-questions-outline.png')] bg-no-repeat bg-center bg-contain pl-14 cursor-pointer py-4 px-4 pr-7 mr-[-47px]">¿Qué es el Techwear y a qué se refiere?</summary>
+      <div class="font-oxygen text-[14px] font-normal text-start mt-6 border-2 border-white py-4 px-4 pr-7 mr-[-47px]">
+        <p>El techwear es un estilo de ropa funcional que combina diseño minimalista y materiales avanzados para mejorar el rendimiento en situaciones cotidianas. Ofrecemos prendas que repelen el agua, son transpirables y altamente duraderas.</p> 
+      </div> 
+    </details>
+
+    <details class="mb-4">
+    <summary class="bg-[url('./src/assets/images/FAQ-acordeon-questions-outline.png')] bg-no-repeat bg-center bg-contain pl-14 cursor-pointer py-4 px-4 pr-7 mr-[-47px]">¿Por qué elegir nuestra línea de TechWear?</summary>
+      <div class="font-oxygen text-[14px] font-normal text-start mt-6 border-2 border-white py-4 px-4 pr-7 mr-[-47px]">
+        <p>El Techwear está diseñado para la vida urbana moderna, proporcionando comodidad, funcionalidad y estilo. Es ideal para moverse en la ciudad y resistir condiciones diversas.</p> 
+      </div> 
+    </details>
+
+    <details class="mb-4">
+    <summary class="bg-[url('./src/assets/images/FAQ-acordeon-questions-outline.png')] bg-no-repeat bg-center bg-contain pl-14 cursor-pointer py-4 px-4 pr-7 mr-[-47px]">¿Qué características tienen nuestras prendas?</summary>
+      <div class="font-oxygen text-[14px] font-normal text-start mt-6 border-2 border-white py-4 px-4 pr-7 mr-[-47px]">
+        <p>Las prendas Techwear ofrecen características avanzadas como impermeabilidad, transpirabilidad y resistencia a la abrasión, diseñadas para mejorar el desempeño en actividades diarias.</p> 
+      </div> 
+    </details>
+
+    <details class="mb-4">
+      <summary class="bg-[url('./src/assets/images/FAQ-acordeon-questions-outline.png')] bg-no-repeat bg-center bg-contain pl-14 cursor-pointer py-4 px-4 pr-7 mr-[-47px]">¿Cuáles son los materiales de nuestras prendas?</summary>
+      <div class="font-oxygen text-[14px] font-normal text-start mt-6 border-2 border-white py-4 px-4 pr-7 mr-[-47px]">
+        <p>Usamos materiales de alta tecnología como Gore-Tex y otras membranas resistentes al agua y al viento, asegurando durabilidad y funcionalidad en cada prenda.</p> 
+      </div> 
+    </details>
+
+    <details class="mb-4">
+      <summary class="bg-[url('./src/assets/images/FAQ-acordeon-questions-outline.png')] bg-no-repeat bg-center bg-contain pl-14 cursor-pointer py-4 px-4 pr-7 mr-[-47px]">¿Cómo cuidar las prendas HadesX?</summary>
+      <div class="font-oxygen text-[14px] font-normal text-start mt-6 border-2 border-white py-4 px-4 pr-7 mr-[-47px]">
+        <p>Para mantener su calidad, es recomendable lavarlas a baja temperatura y evitar el uso de suavizantes, ya que estos pueden afectar las propiedades de los materiales.</p> 
+      </div> 
+    </details>
+    
+  </div>
+</section>
+
+
+
       <app-footer></app-footer>
     `;
 
@@ -300,5 +377,33 @@ export class HomePage extends Page {
       // And if we need scrollbar
       
     });
+    
+   
+
+
+    new Swiper(".swiper2", {
+      // Optional parameters
+      direction: "horizontal",
+      loop: true,
+      autoplay: {
+        delay: 2500,
+        disableOnInteraction: true,
+      },
+
+      // If we need pagination
+      pagination: {
+        el: ".swiper-pagination",
+      },
+
+      // Navigation arrows
+      navigation: {
+        nextEl: ".swiper-button-next2",
+        prevEl: ".swiper-button-prev2",
+      },
+
+      // And if we need scrollbar
+      
+    });
+
   }
 }
