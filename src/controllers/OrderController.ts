@@ -14,9 +14,13 @@ export class OrderController {
     return createdOrder;
   }
 
-  async getUserOrders(userId: string): Promise<Order[]> {
-    return this.orderService.getUserOrders(userId);
+  async getUserOrders(uid: string): Promise<Order[]> {
+    return this.orderService.getUserOrders(uid);
   }
+
+  async getOrderByPaymentIntentId(paymentIntentId: string): Promise<Order | null> {
+    return this.orderService.getOrderByPaymentIntentId(paymentIntentId);
+}
 
   async getOrder(orderId: string): Promise<Order> {
     return this.orderService.getOrder(orderId);
