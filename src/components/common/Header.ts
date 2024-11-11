@@ -16,7 +16,7 @@ export class Header extends Component {
 
   protected render(): void {
     this.setTemplate(/*html*/`
-      <header class="bg-transparent w-full top-0 z-50 absolute">
+      <header class="${this.getAttribute('class') || 'bg-transparent'}  w-full top-0 z-50 absolute">
         <div class="container mx-auto px-4">
           <div class="flex items-center justify-between h-20">
             <!-- Logo -->
