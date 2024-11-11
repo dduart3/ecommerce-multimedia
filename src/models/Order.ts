@@ -1,20 +1,23 @@
-import { IOrder, IOrderItem, OrderStatus  } from '../interfaces/Order';
+import { IOrder, IOrderItem  } from '../interfaces/Order';
+import { PaymentIntentStatus } from '../interfaces/StripeInterfaces';
 
 export class Order implements IOrder {
   id: string;
   uid: string;
+  paymentIntentId: string;
   items: IOrderItem[];
   total: number;
-  status: OrderStatus;
-  createdAt: Date;
+  status: PaymentIntentStatus;
+  createdAt: number;
 
   constructor(data: IOrder) {
     this.id = data.id;
     this.uid = data.uid;
+    this.paymentIntentId = data.paymentIntentId;
     this.items = data.items;
     this.total = data.total;
     this.status = data.status;
-    this.createdAt = new Date(data.createdAt);
+    this.createdAt = data.createdAt;
   }
 
   getTotal(): number {
@@ -25,6 +28,7 @@ export class Order implements IOrder {
     return {
       id: this.id,
       uid: this.uid,
+      paymentIntentId: this.paymentIntentId,
       items: this.items,
       total: this.total,
       status: this.status,
