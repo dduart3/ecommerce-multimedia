@@ -30,6 +30,10 @@ export class CartController {
     this.cartService.updateQuantity(productId, quantity);
   }
 
+  clearCart(): void {
+    this.cartService.clear();
+  }
+
   getTotal(): number {
     return this.cartService.getTotal();
   }

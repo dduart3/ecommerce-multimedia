@@ -63,6 +63,12 @@ export class CartState {
     this.updateCartCount();
   }
 
+  clearCart(): void {
+    this.cartController.clearCart();
+    storage.remove(this.STORAGE_KEY);
+    this.updateCartCount();
+  }
+
   subscribe(callback: () => void) {
     this.subscribers.push(callback);
     callback();
