@@ -1,6 +1,7 @@
 import { loadStripe, Stripe } from '@stripe/stripe-js';
 import { stripeApi } from './../config/stripe';
 import { getEpochTimeSinceHoursAgo } from '../utils/helpers';
+import { ICheckoutSession, IPaymentIntent } from '../interfaces/StripeInterfaces';
 
 export class StripeService {
   private static instance: StripeService;
@@ -18,19 +19,22 @@ export class StripeService {
     return StripeService.instance;
   }
 
-  async getPaymentIntents() {
+  async getLastPaymentIntent() {
     const { data: response } = await stripeApi.get('/payment_intents',  {
       params: {
-        limit: 20,
+        limit: 1,
       },
-    })
-    return response.data;
+    });
+    if (!response.data.length) {
+      return null;
+    }
+    return response.data[0] as IPaymentIntent
   }
 
-  async getCheckouts(customerEmail: string) {
+  async getLastCheckout(customerEmail: string) {
     const { data: response } = await stripeApi.get('/checkout/sessions',  {
       params: {
-        limit: 20,
+        limit: 1,
         customer_details: {
           email: customerEmail,
         },
@@ -38,14 +42,17 @@ export class StripeService {
           gte: getEpochTimeSinceHoursAgo(30)
         }
       },
-    })
-    return response.data;
+    });
+    if (!response.data.length) {
+      return null;
+    }
+    return response.data[0] as ICheckoutSession
   }
 
   async getCheckoutLineItems(id: string) {
     const { data: response } = await stripeApi.get(`/checkout/sessions/${id}/line_items`, {
       params: {
-        limit: 20,
+        limit: 100,
       },
     })
     return response.data;

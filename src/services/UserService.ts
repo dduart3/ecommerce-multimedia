@@ -10,11 +10,11 @@ export class UserService {
 
   async getUser(uid: string): Promise<User> {
     try {
-      const user = await this.firebaseService.getDocumentByField('users', 'uid', uid);
+      const user = await this.firebaseService.getDocumentByField<User>('users', 'uid', uid);
       if (!user) {
         throw new Error('User not found');
       }
-      return user as User;
+      return user;
     } catch (error: any) {
       throw new Error(`Failed to fetch user: ${error.message}`);
     }
