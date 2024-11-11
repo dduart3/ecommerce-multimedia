@@ -15,4 +15,14 @@ export class ProductController {
     const products = await this.productService.getProducts();
     return products;
   }
+
+  async getProduct(id: string): Promise<Product> {
+    return this.productService.getProduct(id);
+  }
+
+  async updateStock(productId: string, quantityChange: number): Promise<void> {
+    const product = await this.productService.getProduct(productId);
+    const newStock = product.stock + quantityChange;
+    await this.productService.updateProduct(productId, { stock: newStock });
+  }
 }
