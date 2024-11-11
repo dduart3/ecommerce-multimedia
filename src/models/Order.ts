@@ -2,7 +2,7 @@ import { IOrder, IOrderItem, OrderStatus  } from '../interfaces/Order';
 
 export class Order implements IOrder {
   id: string;
-  userId: string;
+  uid: string;
   items: IOrderItem[];
   total: number;
   status: OrderStatus;
@@ -10,7 +10,7 @@ export class Order implements IOrder {
 
   constructor(data: IOrder) {
     this.id = data.id;
-    this.userId = data.userId;
+    this.uid = data.uid;
     this.items = data.items;
     this.total = data.total;
     this.status = data.status;
@@ -24,7 +24,7 @@ export class Order implements IOrder {
   toJSON(): IOrder {
     return {
       id: this.id,
-      userId: this.userId,
+      uid: this.uid,
       items: this.items,
       total: this.total,
       status: this.status,

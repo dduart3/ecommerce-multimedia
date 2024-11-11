@@ -1,18 +1,15 @@
-export enum OrderStatus {
-  PENDING = 'pendiente',
-  COMPLETED = 'completada',
-  CANCELLED = 'cancelada',
-}
+import { PaymentIntentStatus } from "./StripeInterfaces";
+
 export interface IOrderItem {
   productId: string;
   quantity: number;
 }
 export interface IOrder {
     id: string;
-    userId: string;
+    uid: string;
     items: IOrderItem[];
     total: number;
-    status: OrderStatus;
-    createdAt: Date;
+    status: PaymentIntentStatus
+    createdAt: number;
 }
   
