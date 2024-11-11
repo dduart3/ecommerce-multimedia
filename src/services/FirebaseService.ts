@@ -19,7 +19,7 @@ export class FirebaseService {
     return docSnap.exists() ? { id: docSnap.id, ...docSnap.data() } : null;
   }
 
-  async getDocumentByField(collectionName: string, field: string, value: any) {
+  async getDocumentByField<T>(collectionName: string, field: string, value: any): Promise<T | null> {
     const q = query(collection(db, collectionName), where(field, '==', value));
     const querySnapshot = await getDocs(q);
     
@@ -29,9 +29,8 @@ export class FirebaseService {
     return {
         id: querySnapshot.docs[0].id,
         ...querySnapshot.docs[0].data()
-    };
+    } as T;
 }
-
 
   async getCollection(collectionName: string) {
     const querySnapshot = await getDocs(collection(db, collectionName));
@@ -54,24 +53,5 @@ export class FirebaseService {
   async deleteDocument(collectionName: string, docId: string) {
     const docRef = doc(db, collectionName, docId);
     await deleteDoc(docRef);
-  }
-
-  // Specific collection queries
-  async getProductsByCategory(category: string) {
-    const q = query(collection(db, 'products'), where('category', '==', category));
-    const querySnapshot = await getDocs(q);
-    return querySnapshot.docs.map(doc => ({
-      id: doc.id,
-      ...doc.data()
-    }));
-  }
-
-  async getUserOrders(userId: string) {
-    const q = query(collection(db, 'orders'), where('userId', '==', userId));
-    const querySnapshot = await getDocs(q);
-    return querySnapshot.docs.map(doc => ({
-      id: doc.id,
-      ...doc.data()
-    }));
   }
 }
