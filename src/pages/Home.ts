@@ -212,27 +212,8 @@ export class HomePage extends Page {
               <div class="swiper-pagination"></div>
 
               <!-- If we need navigation buttons -->
-              <div class="swiper-button-prev">
-              <style>
-            .swiper-button-prev{
-            translate: 150%;
-          }
-            </style>
-              </div>
-              <div class="swiper-button-next">
-              <style>
-            .swiper-button-next{
-            translate: -150%;
-          }
-            </style>
-              </div>
-            <style>
-            .swiper{
-            width: 450px;
-            height: 400px;
-          }
-            </style>
-
+              <div class="swiper-button-prev"></div>
+              <div class="swiper-button-next"></div>
             </div>
 
 
@@ -254,27 +235,21 @@ export class HomePage extends Page {
           <div
             class="h-full w-full bg-[url('./src/assets/images/product_decoration.png')] bg-no-repeat object- text-dark">
             <p class="font-orbitron font-bold text-[40px] flex items-center h-20 ml-52 ">Productos</p>
-            <div class="swiper2">
+            <div class="swiper swiper2">
               <!-- Additional required wrapper -->
               <div class="swiper-wrapper w-5">
                 <!-- Slides -->
-                <div class="swiper-slide2">Slide 1</div>
-                <div class="swiper-slide2">Slide 2</div>
-                <div class="swiper-slide2">Slide 3</div>
-                <style>
-                  .swiper2{
-                    width: 1000px;
-                    height: 300px
-                  }
-                </style> 
+                <div class="swiper-slide">Slide 1</div>
+                <div class="swiper-slide">Slide 2</div>
+                <div class="swiper-slide">Slide 3</div>
                 ...
               </div>
               <!-- If we need pagination -->
-              <div class="swiper-pagination2"></div>
+              <div class="swiper-pagination"></div>
 
               <!-- If we need navigation buttons -->
-              <div class="swiper-button-prev2"></div>
-              <div class="swiper-button-next2"></div>
+              <div class="swiper-button-prev"></div>
+              <div class="swiper-button-next"></div>
                   
 
             </div>
@@ -285,10 +260,6 @@ export class HomePage extends Page {
           <button class="translate-x-[200%] mt-10 hover:scale-105 transition-all ease-in-out"><img src="./src/assets/images/tiendaBtn.png" /></button>
 
         </div>
-
-
-       
-
       </div>
 
 
@@ -305,10 +276,7 @@ export class HomePage extends Page {
           <p class="pb-4">+1(832)764-2222</p>
           <p class="w-72 pb-4">Avenida Guajira, Zona Industrial Norte, Maracaibo 4001, Zulia 1er piso a la derecha
             de la entrada principal</p>
-
         </div>
-
-
       </section>
 
       <!-- FAQ  -->
@@ -382,8 +350,6 @@ export class HomePage extends Page {
         nextEl: ".swiper-button-next",
         prevEl: ".swiper-button-prev",
       },
-
-      // And if we need scrollbar
       
     });
     
@@ -398,20 +364,15 @@ export class HomePage extends Page {
         delay: 2500,
         disableOnInteraction: true,
       },
-
       // If we need pagination
       pagination: {
         el: ".swiper-pagination",
       },
-
       // Navigation arrows
       navigation: {
-        nextEl: ".swiper-button-next2",
-        prevEl: ".swiper-button-prev2",
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
       },
-
-      // And if we need scrollbar
-      
     });
 
   }

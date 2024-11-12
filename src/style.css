@@ -420,3 +420,21 @@ details[open] summary::before {
     0% 100%
   )
 }
+
+.swiper{
+  width: 450px;
+  height: 400px;
+}
+
+.swiper-button-prev{
+  translate: 150%;
+}
+
+.swiper-button-next{
+  translate: -150%;
+}
+
+.swiper2{
+  width: 1000px;
+  height: 300px
+}
