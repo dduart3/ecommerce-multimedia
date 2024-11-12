@@ -4,7 +4,7 @@ import { CartState } from "../state/CartState";
 import { UserState } from "../state/UserState";
 import { AuthState } from "../state/AuthState";
 import { Loader } from "../components/common/Loader";
-import { IPaymentIntent, PaymentIntentStatus } from "../interfaces/StripeInterfaces";
+import {  PaymentIntentStatus } from "../interfaces/StripeInterfaces";
 import { OrderController } from "../controllers/OrderController";
 import { IOrder } from "../interfaces/Order";
 import { ProductController } from "../controllers/ProductController";
@@ -58,7 +58,7 @@ export class ProcessOrderPage extends Page {
       this.renderFailure(`No tienes ninguna orden pendiente por procesar.`);
       return;
     }
-    
+
     const lineItems = await this.stripeService.getCheckoutLineItems(checkout.id);
     if(!lineItems){
       this.renderFailure(`No tienes ninguna orden pendiente por procesar.`);
@@ -66,17 +66,19 @@ export class ProcessOrderPage extends Page {
     }
 
     const cartItems = Array.from(this.cartState.getItems().values())
-  
+
     const orderItems = cartItems.map((item: ICartItem) => ({
       productId: item.product.id,
+      productName: item.product.name,
       quantity: item.quantity,
+      productPrice: item.product.price,
     }));  
 
     const userOrders = await this.orderController.getUserOrders(currentUser.uid);
 
     const isOrderProcessed = userOrders.some((order: IOrder) => order.paymentIntentId === paymentIntent.id);
 
-    if(isOrderProcessed){
+    if(!isOrderProcessed){
       this.renderFailure(`No tienes ninguna orden pendiente por procesar.`);
       return;
     }
@@ -88,6 +90,8 @@ export class ProcessOrderPage extends Page {
       status: paymentIntent.status,
       paymentIntentId: paymentIntent.id,
       createdAt: Date.now(),
+      description: paymentIntent.description,
+      receiptUrl: paymentIntent.latest_charge.receipt_url
     } as Omit<IOrder, "id">;
 
     if (paymentIntent.status === PaymentIntentStatus.SUCCEEDED) {
@@ -112,7 +116,7 @@ export class ProcessOrderPage extends Page {
                 </div>
                 <h2 class="text-2xl font-bold text-gray-800 mb-4">¡Pago Exitoso!</h2>
                 <p class="text-gray-600 mb-6">Tu orden ha sido procesada correctamente.</p>
-                <a href="/orders" data-link class="bg-black text-white px-6 py-2 rounded hover:bg-gray-800 transition-colors">
+                <a href="/profile" data-link class="bg-black text-white px-6 py-2 rounded hover:bg-gray-800 transition-colors">
                     Ir a tu historial de ordenes
                 </a>
             </div>

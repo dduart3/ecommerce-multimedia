@@ -1,95 +1,96 @@
+import { OrderCard } from "../components/orders/OrderCard";
 import { OrderController } from "../controllers/OrderController";
+import { AuthState } from "../state/AuthState";
 import { UserState } from "../state/UserState";
+import { showToast } from "../utils/toast";
 import { Page } from "./Page";
 
 export class UserProfilePage extends Page {
   private userState: UserState;
+  private authState: AuthState;
   private orderController: OrderController;
+  private unsubscribeAuth: (() => void) | null = null;
 
   constructor(containerId: string) {
     super(containerId);
     this.userState = UserState.getInstance();
+    this.authState = AuthState.getInstance();
     this.orderController = new OrderController();
+
+    this.unsubscribeAuth = this.authState.subscribe(() => this.render());
   }
 
   async render(): Promise<void> {
-    //const user = this.userState.getCurrentUser();
-    //const orders = await this.orderController.getUserOrders(user?.uid || '');
 
+    this.container.innerHTML = `<div class="min-h-screen bg-stone-950 flex items-center justify-center">
+        <div class="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-white"></div>
+    </div>`;
+
+    // Wait for auth state to be fully initialized
+    await new Promise(resolve => setTimeout(resolve, 2000));
+
+    const isAuthenticated = this.authState.isUserAuthenticated();
+    if (!isAuthenticated) {
+        window.navigateTo('/login');	
+        return;
+    }
+
+    const user = this.userState.getCurrentUser();
+    if (!user) {
+      showToast({message: "No estás autenticado en el sitio.", type: "error"}); 
+      return;
+    }
     this.container.innerHTML = /*html*/`
     <app-header></app-header>
-      <div class="min-h-screen  pt-24">
-        <div class="container mx-auto px-4 pr-8">
+      <div class="min-h-screen bg-dark pt-24">
+        <div class="container mx-auto px-4 max-w-6xl">
           <!-- Profile Header -->
-          <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
-            <div class="flex items-center space-x-4">
-              <div class="h-20 w-20 bg-gray-200 rounded-full flex items-center justify-center">
-                <span class="text-2xl font-bold text-gray-600">DD</span>
+          <div class="bg-white rounded-xl shadow-lg p-8 mb-8">
+            <div class="flex items-center space-x-6">
+              <div class="h-24 w-24 bg-black rounded-full flex items-center justify-center">
+                <span class="text-3xl font-bold text-white">${user.firstName.charAt(0)}${user.lastName.charAt(0)}</span>
               </div>
               <div>
-                <h1 class="text-2xl font-bold text-gray-800">David Duarte</h1>
-                <p class="text-gray-600">test@gmail.com</p>
+                <h1 class="text-3xl font-bold text-gray-800 font-orbitron">${user?.firstName} ${user?.lastName}</h1>
+                <p class="text-gray-600 mt-1">${user?.email}</p>
+                <p class="text-sm text-gray-500 mt-2">Miembro desde ${new Date(user?.createdAt).toLocaleDateString()}</p>
               </div>
             </div>
           </div>
 
-          <!-- Tabs -->
-          <div class="bg-white rounded-lg shadow-lg min-h-[400px]">
-            <div class="border-b px-6">
-              <nav class="-mb-px flex space-x-6">
-                <button class="tab-btn active border-b-2 border-black px-1 py-4 text-sm font-medium text-gray-500 hover:text-gray-700">
-                  Mis Órdenes
-                </button>
-                <!-- Can add more tabs here -->
-              </nav>
+          <!-- Orders Section -->
+          <div id="orders-container" class="bg-white rounded-xl shadow-lg overflow-hidden text-black">
+            <div class="border-b border-gray-200">
+              <h2 class="text-2xl font-bold p-6 font-orbitron">Historial de Órdenes</h2>
             </div>
-
-            <!-- Orders Tab -->
-            <div class="tab-content p-6">
-              <div class="space-y-4">
-                 <!-- Order Card -->
-                  <div class="border rounded-lg p-4 hover:shadow-md transition-shadow">
-                    <div class="flex justify-between items-start">
-
-                      <div>
-                        <p class="text-sm text-gray-500">Orden # 123</p>
-                        <p class="font-medium text-gray-500">${new Date().toLocaleDateString()}</p>
-                      </div>
-                      <div class="text-right">
-                        
-                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                          "completed" === 'completed' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'
-                        }">
-                          Completada
-                        </span>
-                        
-                      </div>
-                    </div>
-                    <div class="mt-4">
-                      <p class="text-sm text-gray-600">Items: 4</p>
-                    </div>
-                  </div>
-
-
-
-              </div>
+            <!-- Orders will render here -->
+             <p class="no-orders text-lg text-gray-600 p-4 text-center">Aún no tienes ordenes</p>
+             
             </div>
           </div>
         </div>
       </div>
     `;
+    this.renderOrders();
+}
 
-    this.addEventListeners();
-  }
 
-  private addEventListeners(): void {
-    const tabs = this.container.querySelectorAll('.tab-btn');
-    tabs.forEach(tab => {
-      tab.addEventListener('click', () => {
-        tabs.forEach(t => t.classList.remove('active', 'border-black'));
-        tab.classList.add('active', 'border-black');
-        // Handle tab content switching
-      });
+  private renderOrders(): void {
+    const ordersContainer = this.container.querySelector("#orders-container");
+    const ordersText = this.container.querySelector(".no-orders");
+
+    this.orderController.getUserOrders(this.userState.getCurrentUser()?.uid || '').then((orders) => {
+    if(!orders) {
+      ordersText?.classList.remove("hidden");  
+      return;
+    }
+
+    ordersText?.classList.add("hidden");  
+    orders.forEach((order) => {
+      const orderCard = new OrderCard(order);
+      ordersContainer?.appendChild(orderCard);
+      return;
     });
+  });
   }
 }

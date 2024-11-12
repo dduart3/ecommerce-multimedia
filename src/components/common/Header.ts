@@ -41,13 +41,13 @@ export class Header extends Component {
               </button>
               
               <cart-widget></cart-widget>
-              
               ${this.renderAuthButton()}
             </div>
           </div>
         </div>
       </header>
     `);
+    this.setupListeners();
   }
 
   private renderAuthButton(): string {
@@ -56,16 +56,15 @@ export class Header extends Component {
     if (isAuth && user) {
       return /*html*/`
         <div class="relative group">
-          <button class="p-2 hover:bg-gray-100 rounded-full transition-colors flex items-center space-x-2">
+          <button class="p-2 hover:bg-gray-100 rounded-full transition-colors flex items-center space-x-2 profile-button">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="white">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
             </svg>
             <span class="text-white text-sm">${user?.firstName}</span>
           </button>
-          <div class="hidden group-hover:block absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-xl">
-            <a href="/profile" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Profile</a>
-            <a href="/orders" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Orders</a>
-            <button class="w-full text-left px-4 py-2 text-red-600 hover:bg-gray-100" onclick="logout()">Logout</button>
+          <div class="hidden  absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-xl profile-dropdown">
+            <a href="/profile" class="block px-4 py-2 text-gray-800 hover:bg-gray-200 rounded-lg">Profile</a>
+            <button id="logout" class="w-full text-left px-4 py-2 text-red-600 hover:bg-gray-200 rounded-lg" >Logout</button>
           </div>
         </div>
       `;
@@ -79,6 +78,40 @@ export class Header extends Component {
       </a>
     `;
   }
+
+  private setupListeners(): void {
+    const button = this.querySelector('.profile-button');
+    const dropdown = this.querySelector('.profile-dropdown');
+    const logoutButton = this.querySelector('#logout');
+    let timeoutId: number;
+
+    button?.addEventListener('mouseenter', () => {
+        clearTimeout(timeoutId);
+        dropdown?.classList.remove('hidden');
+    });
+
+    dropdown?.addEventListener('mouseenter', () => {
+        clearTimeout(timeoutId);
+    });
+
+    button?.addEventListener('mouseleave', () => {
+        timeoutId = window.setTimeout(() => {
+            if (!dropdown?.matches(':hover')) {
+                dropdown?.classList.add('hidden');
+            }
+        }, 200);
+    });
+
+    dropdown?.addEventListener('mouseleave', () => {
+        timeoutId = window.setTimeout(() => {
+            dropdown.classList.add('hidden');
+        }, 200);
+    });
+
+    logoutButton?.addEventListener('click', () => {
+        this.authState.logout();
+    });
+}
 
   protected onMount(): void {
     this.unsubscribeAuth = this.authState.subscribe(() => this.render());

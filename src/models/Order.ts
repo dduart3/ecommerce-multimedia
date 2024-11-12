@@ -9,6 +9,8 @@ export class Order implements IOrder {
   total: number;
   status: PaymentIntentStatus;
   createdAt: number;
+  description: string;
+  receiptUrl?: string;
 
   constructor(data: IOrder) {
     this.id = data.id;
@@ -18,6 +20,8 @@ export class Order implements IOrder {
     this.total = data.total;
     this.status = data.status;
     this.createdAt = data.createdAt;
+    this.description = data.description;
+    this.receiptUrl = data.receiptUrl;
   }
 
   getTotal(): number {
@@ -32,7 +36,8 @@ export class Order implements IOrder {
       items: this.items,
       total: this.total,
       status: this.status,
-      createdAt: this.createdAt
+      createdAt: this.createdAt,
+      description: this.description
     };
   }
 }

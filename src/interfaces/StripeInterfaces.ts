@@ -12,6 +12,9 @@ export interface IPaymentIntent {
     metadata: {
       order_id: string;
     };
+    latest_charge: {
+      receipt_url: string;
+    }
 }
 
 export interface ICheckoutSession {

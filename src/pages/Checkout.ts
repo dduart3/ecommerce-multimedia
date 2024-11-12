@@ -39,8 +39,8 @@ export class CheckoutPage extends Page {
           mode: 'payment',
           billingAddressCollection: 'required',
           customerEmail: this.userState.getCurrentUser()?.email,
-          successUrl: window.location.protocol + '//localhost:5173/',
-          cancelUrl: window.location.protocol + '//localhost:5173/',
+          successUrl: window.location.protocol + '//localhost:5173/process-order',
+          cancelUrl: window.location.protocol + '//localhost:5173/process-order',
         })
         .then(function (result) {
           if (result.error) {

@@ -6,35 +6,23 @@ import './components/common/Footer';
 import './components/common/ScrollToTop';
 import { StripeService } from "./services/StripeService";
 import { CartState } from "./state/CartState";
-import { OrderController } from './controllers/OrderController'
 import { Router } from './router/Router';
+import { UserState } from "./state/UserState";
+import { AuthState } from "./state/AuthState";
 
 class App {
-  private orderController: OrderController;
   private router: Router;
   private stripeService: StripeService;
   private cartState: CartState;
+  private userState: UserState;
+  private authState: AuthState;
 
   constructor() {
-    this.orderController = new OrderController();
     this.stripeService = StripeService.getInstance();
     this.cartState = CartState.getInstance();
+    this.userState = UserState.getInstance();
+    this.authState = AuthState.getInstance();
     this.router = new Router("app");
-
-
-    this.initialize();
-  }
-
-  private async initialize() {
-    try {
-      await this.setupEventListeners();
-    } catch (error) {
-      console.error('Error initializing app:', error);
-    }
-  }
-
-  private async setupEventListeners() {
-  
   }
 }
 

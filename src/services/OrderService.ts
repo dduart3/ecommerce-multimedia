@@ -28,12 +28,15 @@ export class OrderService {
 
   async getUserOrders(uid: string): Promise<Order[]> {
       try {
-        const orders = await this.firebaseService.getDocumentByField<Order[]>('orders', 'uid', uid);
+        const orders = await this.firebaseService.getDocumentByField<Order | Order[]>('orders', 'uid', uid);
         console.log('Fetched orders:', orders);
         if (orders === null) {
           return [];
         }
-        return orders;
+        if(orders instanceof Array){
+          return orders;
+        }
+        return [orders];
       } catch (error: any) {
         throw new Error(`Failed to fetch user: ${error.message}`);
       }

@@ -20,7 +20,11 @@ export class StripeService {
   }
 
   async getPaymentIntent(paymentIntentId: string) {
-    const { data: response } = await stripeApi.get(`/payment_intents/${paymentIntentId}`);
+    const { data: response } = await stripeApi.get(`/payment_intents/${paymentIntentId}`, {
+      params: {
+        expand: ['latest_charge'],
+      },
+    });
     if (!response) {
       return null;
     }
@@ -35,8 +39,8 @@ export class StripeService {
           email: customerEmail,
         },
         created: {
-          gte: getEpochTimeSinceHoursAgo(1)
-        }
+          gte: getEpochTimeSinceHoursAgo(1000000)
+        },
       },
     });
     if (!response.data.length) {

@@ -22,7 +22,6 @@ export class ProductCard extends Component {
         </div>
         <div class="p-3 font-orbitron">
           <h3 class="text-md font-bold mb-1 truncate">${this.product.name}</h3>
-          <p class="mb-2 text-sm h-12 overflow-hidden">${this.product.description}</p>
           <div class="flex justify-between items-center">
             <div class="flex flex-col justify-between gap-2">
             <span class="text-sm text-black">Disponibles: ${this.product.stock}</span>

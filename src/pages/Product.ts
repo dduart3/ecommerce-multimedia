@@ -8,6 +8,7 @@ export class ProductPage extends Page {
     super(containerId);
     this.productId = productId;
     this.productController = new ProductController();
+    console.log("Product ID:", this.productId);
   }
 
   async render(): Promise<void> {

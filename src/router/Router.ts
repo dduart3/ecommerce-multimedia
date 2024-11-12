@@ -5,7 +5,6 @@ import { UserProfilePage } from '../pages/UserProfile';
 import { NotFoundPage } from '../pages/NotFound';
 import { LoginPage } from '../pages/LoginPage';
 import { RegisterPage } from '../pages/RegisterPage';
-import { OrdersPage } from '../pages/OrdersPage';
 import { About } from '../pages/About';
 import { ProcessOrderPage } from '../pages/ProcessOrder';
 import { ProductPage } from '../pages/Product';
@@ -30,7 +29,6 @@ export class Router {
       ['/about', About],
       ['/register', RegisterPage],
       ['/profile', UserProfilePage],
-      ['/orders', OrdersPage],
       ['/process-order', ProcessOrderPage],
     ]);
 

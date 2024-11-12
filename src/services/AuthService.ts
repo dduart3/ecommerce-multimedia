@@ -25,7 +25,7 @@ export class AuthService {
       email: email,
       firstName: firstName,
       lastName: lastName,
-      orders: []
+      createdAt: Date.now(),
     };
     
     try {

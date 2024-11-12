@@ -6,7 +6,7 @@ export class User implements IUser {
   email: string;
   firstName: string;
   lastName: string;
-  orders: string[];
+  createdAt: number;
 
   constructor(data: IUser) {
     this.id = data.id;
@@ -14,13 +14,9 @@ export class User implements IUser {
     this.email = data.email;
     this.firstName = data.firstName;
     this.lastName = data.lastName;
-    this.orders = data.orders || [];
+    this.createdAt = data.createdAt;
   }
-
-  addOrder(orderId: string): void {
-    this.orders.push(orderId);
-  }
-
+  
   toJSON(): IUser {
     return {
       id: this.id,
@@ -28,7 +24,7 @@ export class User implements IUser {
       email: this.email,
       firstName: this.firstName,
       lastName: this.lastName,
-      orders: this.orders
+      createdAt: this.createdAt,
     };
   }
 }
