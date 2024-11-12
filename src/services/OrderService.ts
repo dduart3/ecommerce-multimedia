@@ -22,11 +22,16 @@ export class OrderService {
     return order as Order;
   }
 
+  async getOrderByPaymentIntentId(paymentIntentId: string): Promise<Order | null> {
+    return this.firebaseService.getDocumentByField<Order>('orders', 'paymentIntentId', paymentIntentId);
+}
+
   async getUserOrders(uid: string): Promise<Order[]> {
       try {
         const orders = await this.firebaseService.getDocumentByField<Order[]>('orders', 'uid', uid);
-        if (!orders) {
-          throw new Error('User not found');
+        console.log('Fetched orders:', orders);
+        if (orders === null) {
+          return [];
         }
         return orders;
       } catch (error: any) {

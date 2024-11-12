@@ -7,6 +7,7 @@ export interface IOrderItem {
 export interface IOrder {
     id: string;
     uid: string;
+    paymentIntentId: string;
     items: IOrderItem[];
     total: number;
     status: PaymentIntentStatus

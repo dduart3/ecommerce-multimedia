@@ -9,12 +9,19 @@ export class ProductService {
   }
 
   async getProducts(): Promise<Product[]> {
-    const products = await this.firebaseService.getCollection('productos') as Product[];
+    const products = await this.firebaseService.getCollection('products') as Product[];
     return products.map(data => new Product(data));
   }
 
-  async getProductById(id: string): Promise<Product | null> {
-    const data = await this.firebaseService.getDocument('productos', id) as Product;
-    return data ? new Product(data) : null;
+  async getProduct(id: string): Promise<Product> {
+    const product = await this.firebaseService.getDocument('products', id);
+    if (!product) {
+        throw new Error('Product not found');
+    }
+    return product as Product;
+  }
+
+  async updateProduct(productId: string, data: Partial<Product>): Promise<void> {
+    await this.firebaseService.updateDocument('products', productId, data);
   }
 }

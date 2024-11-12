@@ -22,4 +22,5 @@ export interface ICheckoutSession {
     };
     payment_status: string;
     created: number;
+    payment_intent: string;
 }

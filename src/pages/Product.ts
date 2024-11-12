@@ -1,13 +1,17 @@
+import { ProductController } from "../controllers/ProductController";
 import { Page } from "./Page";
-import { CartItem } from "../components/cart/CartItem";
-import { ICartItem } from '../interfaces/Cart';
-
 export class ProductPage extends Page {
-  constructor(containerId: string) {
+  private productId: string;
+  private productController: ProductController;
+  
+  constructor(containerId: string, productId: string) {
     super(containerId);
+    this.productId = productId;
+    this.productController = new ProductController();
   }
 
   async render(): Promise<void> {
+    //const product = await this.productController.getProduct(this.productId);
     this.container.innerHTML = /*html*/ `
       <app-header></app-header>
 
@@ -15,11 +19,11 @@ export class ProductPage extends Page {
       <div class="bg-white w-full h-screen mt-20 px-32">
         
         <!-- Contenedor de producto -->
-        <div class="flex w-full">
+        <div class="flex w-full pt-16">
           
           <!-- Imagen del producto -->
           <div class="w-1/2 h-72 pt-6">
-            <img src="./src/assets/images/products/casco.png" class="object-contain" width="400px"/>
+            <img src="../src/assets/images/products/casco.png" class="object-contain" width="400px"/>
           </div>
           
           <!-- Información del producto -->
@@ -27,7 +31,7 @@ export class ProductPage extends Page {
             <h3 class="text-[20px] pb-4">Casco vergatario</h3>
             <p class="text-[40px]">$20,00</p>
             <p class="pt-8 font-oxygen">Descripción:</p>
-            <p class="pt-2 text-[13px] font-oxygen font-light">
+            <p class="pt-2 text-xl font-oxygen font-light">
               Casco antivirginidad, joder, que gran casco. Casco antivirginidad, joder, que gran casco. 
               Casco antivirginidad, joder, que gran casco. Casco antivirginidad, joder, que gran casco.
             </p>
