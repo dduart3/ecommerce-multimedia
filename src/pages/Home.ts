@@ -18,9 +18,9 @@ export class HomePage extends Page {
       <p class="font-oxygen text-md mt-[-50px] ">Prepárate para llevar tu look al siguiente nivel con prendas de
         alta calidad que desafían lo convencional. Únete a nosotros y transforma tu estilo en una declaración de
         audacia y originalidad.</p>
-      <p class="bg-black w-fit p-3 mt-5 font-oxygen font-bold">Canjea el cupón gratis de hasta un 80% de descuento.
+      <p class="bg-black w-fit p-3 mt-5 font-oxygen font-bold">Descuento de hasta un 80% de descuento en tu primera compra.
       </p>
-      <button class="pt-6"><img src="/src/assets/images/ReclamarBtn.png" width="200px" /></button>
+      <button class="pt-6 hover:scale-105 transition-all ease-in-out"><img src="./src/assets/images/comprar-btn-landing.png" width="200px" /></button>
     </div>
 
     <!-- Imagen  -->
@@ -85,7 +85,7 @@ export class HomePage extends Page {
 
     <!-- Experiencia HADESX  -->
     <div class="h-screen w-full pl-10">
-      <p class="text-primary font-orbitron font-bold text-[260px] pl-52">01</p>
+      <p class="text-primary font-orbitron font-bold text-[260px] translate-x-[350px]">01</p>
 
       <h2 class="text-primary font-semibold font-orbitron text-3xl pt-4"> Experiencia <span
           class="text-5xl">HADESX</span> </h2>
@@ -203,9 +203,9 @@ export class HomePage extends Page {
               <!-- Additional required wrapper -->
               <div class="swiper-wrapper w-5 ">
                 <!-- Slides -->
-                <div class="swiper-slide"> <img src="./src/assets/images/Product1.png" width="500px" class="mt-[-3px]" /></div>
-                <div class="swiper-slide"> <img src="./src/assets/images/product-4-populares-home.png" width="500px" class="mt-[-3px]" /></div>
-                <div class="swiper-slide"> <img src="./src/assets/images/product-5-populares-home.png" class="mt-[-3px]" width="500px" /></div>
+                <div class="swiper-slide"> <img src="./src/assets/images/Product1.png" width="430px" class="mt-[-3px] cursor-pointer hover:scale-95 transition-all ease-in-out" /></div>
+                <div class="swiper-slide"> <img src="./src/assets/images/product-4-populares-home.png" width="430px" class="mt-[-3px] cursor-pointer hover:scale-95 transition-all ease-in-out" /></div>
+                <div class="swiper-slide"> <img src="./src/assets/images/product-5-populares-home.png" class="mt-[-3px] cursor-pointer hover:scale-95 transition-all ease-in-out" width="430px" /></div>
                 ...
               </div>
               <!-- If we need pagination -->
@@ -228,7 +228,7 @@ export class HomePage extends Page {
               </div>
             <style>
             .swiper{
-            width: 430px;
+            width: 450px;
             height: 400px;
           }
             </style>
@@ -241,11 +241,12 @@ export class HomePage extends Page {
             <p
               class="font-orbitron text-dark font-bold border-2 border-primary align-middle items-center justify-center flex p-2 mb-5">
               Populares</p>
-            <img src="./src/assets/images/Product2.png" />
+            <img src="./src/assets/images/Product2.png" class="cursor-pointer hover:scale-105 transition-all ease-out"/>
           </div>
-
-          <img src="./src/assets/images/Product3.png" class="mt-[-210px]" class="cursor-pointer z-50" />
-
+            <div class="cursor-pointer hover:scale-105 transition-all ease-in-out">
+              <img src="./src/assets/images/Product3.png" class="mt-[-210px]" class="cursor-pointer hover:scale-105 transition-all ease-out z-50" />
+            </div>
+              
         </div>
 
         <div>
@@ -253,32 +254,40 @@ export class HomePage extends Page {
           <div
             class="h-full w-full bg-[url('./src/assets/images/product_decoration.png')] bg-no-repeat object- text-dark">
             <p class="font-orbitron font-bold text-[40px] flex items-center h-20 ml-52 ">Productos</p>
-            <div class="swiper">
+            <div class="swiper2">
               <!-- Additional required wrapper -->
               <div class="swiper-wrapper w-5">
                 <!-- Slides -->
-                <div class="swiper-slide">Slide 1</div>
-                <div class="swiper-slide">Slide 2</div>
-                <div class="swiper-slide">Slide 3</div>
+                <div class="swiper-slide2">Slide 1</div>
+                <div class="swiper-slide2">Slide 2</div>
+                <div class="swiper-slide2">Slide 3</div>
+                <style>
+                  .swiper2{
+                    width: 1000px;
+                    height: 300px
+                  }
+                </style> 
                 ...
               </div>
               <!-- If we need pagination -->
-              <div class="swiper-pagination"></div>
+              <div class="swiper-pagination2"></div>
 
               <!-- If we need navigation buttons -->
-              <div class="swiper-button-prev"></div>
-              <div class="swiper-button-next"></div>
-
+              <div class="swiper-button-prev2"></div>
+              <div class="swiper-button-next2"></div>
+                  
 
             </div>
+
+           
           </div>
 
-
+          <button class="translate-x-[200%] mt-10 hover:scale-105 transition-all ease-in-out"><img src="./src/assets/images/tiendaBtn.png" /></button>
 
         </div>
 
 
-        <button class=""><img src="./src/assets/images/tiendaBtn.png" /></button>
+       
 
       </div>
 
