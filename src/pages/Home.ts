@@ -230,31 +230,7 @@ export class HomePage extends Page {
               
         </div>
 
-        <div>
-
-          <div
-            class="h-full w-full bg-[url('./src/assets/images/product_decoration.png')] bg-no-repeat object- text-dark">
-            <p class="font-orbitron font-bold text-[40px] flex items-center h-20 ml-52 ">Productos</p>
-            <div class="swiper swiper2">
-              <!-- Additional required wrapper -->
-              <div class="swiper-wrapper w-5">
-                <!-- Slides -->
-                <div class="swiper-slide">Slide 1</div>
-                <div class="swiper-slide">Slide 2</div>
-                <div class="swiper-slide">Slide 3</div>
-                ...
-              </div>
-              <!-- If we need pagination -->
-              <div class="swiper-pagination"></div>
-
-              <!-- If we need navigation buttons -->
-              <div class="swiper-button-prev"></div>
-              <div class="swiper-button-next"></div>
-            </div>
-          </div>
-          <button class="translate-x-[200%] mt-10 hover:scale-105 transition-all ease-in-out"> <a href="/products"> <img src="./src/assets/images/tiendaBtn.png" /></a></button>
-        </div>
-      </div>
+ 
 
 
 
