@@ -38,6 +38,7 @@ export class StripeService {
         customer_details: {
           email: customerEmail,
         },
+        status: 'complete',
         created: {
           gte: getEpochTimeSinceHoursAgo(1)
         },

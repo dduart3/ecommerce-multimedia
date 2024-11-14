@@ -1,15 +1,15 @@
-import { db } from '../config/firebase';
-import { 
-  collection, 
-  doc, 
-  getDoc, 
-  getDocs, 
-  addDoc, 
-  updateDoc, 
-  deleteDoc, 
-  query, 
-  where 
-} from 'firebase/firestore';
+import { db } from "../config/firebase";
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  addDoc,
+  updateDoc,
+  deleteDoc,
+  query,
+  where,
+} from "firebase/firestore";
 
 export class FirebaseService {
   // Generic methods for any collection
@@ -19,24 +19,44 @@ export class FirebaseService {
     return docSnap.exists() ? { id: docSnap.id, ...docSnap.data() } : null;
   }
 
-  async getDocumentByField<T>(collectionName: string, field: string, value: any): Promise<T | null> {
-    const q = query(collection(db, collectionName), where(field, '==', value));
+  async getDocumentByField<T>(
+    collectionName: string,
+    field: string,
+    value: any
+  ): Promise<T | null> {
+    const q = query(collection(db, collectionName), where(field, "==", value));
     const querySnapshot = await getDocs(q);
-    
+
     if (querySnapshot.empty) {
-        return null;
+      return null;
     }
     return {
-        id: querySnapshot.docs[0].id,
-        ...querySnapshot.docs[0].data()
+      id: querySnapshot.docs[0].id,
+      ...querySnapshot.docs[0].data(),
     } as T;
-}
+  }
+
+  async getDocumentsByField<T>(
+    collectionName: string,
+    field: string,
+    value: any
+  ): Promise<T | null> {
+    const q = query(collection(db, collectionName), where(field, "==", value));
+    const querySnapshot = await getDocs(q);
+
+    const docs = querySnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+
+    return docs as T;
+  }
 
   async getCollection(collectionName: string) {
     const querySnapshot = await getDocs(collection(db, collectionName));
-    return querySnapshot.docs.map(doc => ({
+    return querySnapshot.docs.map((doc) => ({
       id: doc.id,
-      ...doc.data()
+      ...doc.data(),
     }));
   }
 

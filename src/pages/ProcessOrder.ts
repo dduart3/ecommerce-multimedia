@@ -78,7 +78,7 @@ export class ProcessOrderPage extends Page {
 
     const isOrderProcessed = userOrders.some((order: IOrder) => order.paymentIntentId === paymentIntent.id);
 
-    if(!isOrderProcessed){
+    if(isOrderProcessed){
       this.renderFailure(`No tienes ninguna orden pendiente por procesar.`);
       return;
     }

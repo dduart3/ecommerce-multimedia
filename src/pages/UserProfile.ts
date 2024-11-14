@@ -42,7 +42,7 @@ export class UserProfilePage extends Page {
     }
     this.container.innerHTML = /*html*/`
     <app-header></app-header>
-      <div class="min-h-screen bg-dark pt-24">
+      <div class="min-h-screen bg-dark py-24">
         <div class="container mx-auto px-4 max-w-6xl">
           <!-- Profile Header -->
           <div class="bg-white rounded-xl shadow-lg p-8 mb-8">

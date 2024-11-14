@@ -1,23 +1,25 @@
-import { Component } from '../Component';
-import { CartState } from '../../state/CartState';
-import { ICartItem } from '../../interfaces/Cart';
-import { CartItem } from './CartItem';
+import { Component } from "../Component";
+import { CartState } from "../../state/CartState";
+import { ICartItem } from "../../interfaces/Cart";
+import { CartItem } from "./CartItem";
+import { AuthState } from "../../state/AuthState";
 export class CartComponent extends Component {
-  
   private cartState: CartState;
   private unsubscribe: (() => void) | null = null;
   private isDropdownOpen: boolean = false;
+  private authState: AuthState;
 
   constructor() {
     super();
     this.cartState = CartState.getInstance();
+    this.authState = AuthState.getInstance();
   }
 
-  render(){
+  render() {
     const total = this.cartState?.getFormattedTotal();
     const itemCount = this.cartState?.getItemCount();
-    
-    this.setTemplate(/*html*/`
+
+    this.setTemplate(/*html*/ `
       <div class="cart-widget relative">
         <button id="cart-button" class="p-2 hover:bg-gray-100 rounded-full transition-colors group">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 group-hover:stroke-black" fill="none" viewBox="0 0 24 24" stroke="white">
@@ -28,23 +30,29 @@ export class CartComponent extends Component {
           </span>
         </button>
         
-        <div class="cart-dropdown ${this.isDropdownOpen ? '' : 'hidden'} absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-xl z-50">
+        <div class="cart-dropdown ${
+          this.isDropdownOpen ? "" : "hidden"
+        } absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-xl z-50">
           <div class="p-4">
             <h3 class="text-lg font-bold mb-2">Shopping Cart</h3>
             <div id="cart-items" class="max-h-96 overflow-auto">
              // Cart items will be rendered here
             </div>
-            ${itemCount > 0 ? /*html*/`
+            ${
+              itemCount > 0
+                ? /*html*/ `
               <div class="mt-4 pt-4 border-t">
                 <div class="flex justify-between items-center">
                   <span class="text-gray-600">Total:</span>
                   <span class="font-bold text-lg text-black">${total}</span>
                 </div>
-                <a href="/checkout" data-link class="block text-center bg-black text-white py-2 mt-4 rounded hover:bg-gray-800 transition-colors">
-                  Proceder al pago
-                </a>
+                <button id="checkout-button"  class="block text-center bg-black text-white py-2 mt-4 rounded hover:bg-gray-800 transition-colors w-full">
+                  
+                </button>
               </div>
-            ` : ''}
+            `
+                : ""
+            }
           </div>
         </div>
       </div>
@@ -52,20 +60,21 @@ export class CartComponent extends Component {
   }
 
   private renderCartItems(items: Map<string, ICartItem>): void {
-    const cartItemsContainer = this.querySelector('#cart-items');
+    const cartItemsContainer = this.querySelector("#cart-items");
     if (!cartItemsContainer) return;
 
     if (items.size === 0) {
-        cartItemsContainer.innerHTML = '<p class="text-gray-500 text-center py-4">El carrito está vacio</p>';
-        return;
+      cartItemsContainer.innerHTML =
+        '<p class="text-gray-500 text-center py-4">El carrito está vacio</p>';
+      return;
     }
 
-    cartItemsContainer.innerHTML = '';
-    Array.from(items.values()).forEach(item => {
-        const cartItem = new CartItem(item);
-        cartItemsContainer.appendChild(cartItem);
+    cartItemsContainer.innerHTML = "";
+    Array.from(items.values()).forEach((item) => {
+      const cartItem = new CartItem(item);
+      cartItemsContainer.appendChild(cartItem);
     });
-}
+  }
   protected onMount(): void {
     this.unsubscribe = this.cartState?.subscribe(() => this.onUpdate());
   }
@@ -80,33 +89,54 @@ export class CartComponent extends Component {
     this.render();
     this.renderCartItems(this.cartState?.getItems());
     this.addEventListeners();
+    this.setupCheckoutButton();
   }
 
   private addEventListeners(): void {
-    const cartButton = this.querySelector('#cart-button');
-    const dropdown = this.querySelector('.cart-dropdown');
-    const removeButtons = this.querySelectorAll('.remove-item');
+    const cartButton = this.querySelector("#cart-button");
+    const dropdown = this.querySelector(".cart-dropdown");
+    const removeButtons = this.querySelectorAll(".remove-item");
 
-    cartButton?.addEventListener('click', () => {
-      const isDropDownHidden = dropdown?.classList.contains('hidden');
+    cartButton?.addEventListener("click", () => {
+      const isDropDownHidden = dropdown?.classList.contains("hidden");
       if (isDropDownHidden) {
         this.isDropdownOpen = true;
-        dropdown?.classList.remove('hidden');
+        dropdown?.classList.remove("hidden");
       } else {
         this.isDropdownOpen = false;
-        dropdown?.classList.add('hidden');
+        dropdown?.classList.add("hidden");
       }
     });
 
-    removeButtons.forEach(button => {
-      button.addEventListener('click', () => {
-        const productId = button.getAttribute('data-id');
+    removeButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const productId = button.getAttribute("data-id");
         if (productId) {
           this.cartState.removeFromCart(productId);
         }
       });
     });
   }
+
+  private setupCheckoutButton(): void {
+    const checkoutButton = this.querySelector("#checkout-button");
+
+    if (!checkoutButton) return;
+
+    if (this.authState.isUserAuthenticated()) {
+      checkoutButton.textContent = "Proceder al pago";
+    } else {
+      checkoutButton.textContent = "Inicia sesión para continuar";
+    }
+
+    checkoutButton.addEventListener("click", () => {
+      if (this.authState.isUserAuthenticated()) {
+        window.navigateTo("/checkout");
+      } else {
+        window.navigateTo("/login");
+      }
+    });
+  }
 }
 
-customElements.define('cart-widget', CartComponent);
+customElements.define("cart-widget", CartComponent);
