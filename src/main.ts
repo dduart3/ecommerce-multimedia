@@ -1,6 +1,7 @@
 import "./style.css";
 import './components/cart/CartItem';
 import './components/cart/CartComponent';
+import './components/search/SearchComponent';
 import "./components/common/Header";
 import './components/common/Footer';
 import './components/common/ScrollToTop';

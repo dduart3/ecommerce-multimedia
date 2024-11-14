@@ -34,7 +34,7 @@ export class CartComponent extends Component {
             <div id="cart-items" class="max-h-96 overflow-auto">
              // Cart items will be rendered here
             </div>
-            ${itemCount > 0 ? `
+            ${itemCount > 0 ? /*html*/`
               <div class="mt-4 pt-4 border-t">
                 <div class="flex justify-between items-center">
                   <span class="text-gray-600">Total:</span>

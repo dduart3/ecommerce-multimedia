@@ -272,10 +272,10 @@ export class HomePage extends Page {
         <h6 class=" text-[50px] pl-24 ">NO SEAS TIMIDO. <br> CONTACTANOS.</h6>
 
         <div class="font-normal ml-10">
-          <p class="pb-4">info@hadesX.com</p>
-          <p class="pb-4">+1(832)764-2222</p>
+          <p class="pb-4">contact@hadesX.com</p>
+          <p class="pb-4">+58-(414)-420-6969</p>
           <p class="w-72 pb-4">Avenida Guajira, Zona Industrial Norte, Maracaibo 4001, Zulia 1er piso a la derecha
-            de la entrada principal</p>
+            de la entrada principal, C.C Sambil Maracaibo, Local 12</p>
         </div>
       </section>
 

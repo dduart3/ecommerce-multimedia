@@ -8,6 +8,7 @@ import { RegisterPage } from '../pages/RegisterPage';
 import { About } from '../pages/About';
 import { ProcessOrderPage } from '../pages/ProcessOrder';
 import { ProductPage } from '../pages/Product';
+import { ContactPage } from '../pages/Contact';
 declare global {
   interface Window { navigateTo: (path: string) => void; }
 }
@@ -30,6 +31,7 @@ export class Router {
       ['/register', RegisterPage],
       ['/profile', UserProfilePage],
       ['/process-order', ProcessOrderPage],
+      ['/contact', ContactPage],
     ]);
 
     this.initializeRouter();

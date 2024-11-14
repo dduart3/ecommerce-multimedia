@@ -39,7 +39,7 @@ export class StripeService {
           email: customerEmail,
         },
         created: {
-          gte: getEpochTimeSinceHoursAgo(1000000)
+          gte: getEpochTimeSinceHoursAgo(1)
         },
       },
     });

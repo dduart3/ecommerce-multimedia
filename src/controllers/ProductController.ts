@@ -25,4 +25,14 @@ export class ProductController {
     const newStock = product.stock + quantityChange;
     await this.productService.updateProduct(productId, { stock: newStock });
   }
+
+  async searchProducts(searchTerm: string): Promise<Product[]> {
+    const products = await this.productService.getProducts();
+    
+    return products.filter(product => 
+        product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        product.description.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+}
+
 }
