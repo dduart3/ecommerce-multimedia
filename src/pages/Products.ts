@@ -25,6 +25,7 @@ export class ProductsPage extends Page {
           </div>
         </div>
       </div>
+      <app-footer></app-footer>
         `;
 
     const products = await this.productController.getAllProducts();

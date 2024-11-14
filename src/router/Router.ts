@@ -9,6 +9,9 @@ import { About } from '../pages/About';
 import { ProcessOrderPage } from '../pages/ProcessOrder';
 import { ProductPage } from '../pages/Product';
 import { ContactPage } from '../pages/Contact';
+import { PrivacyPage } from '../pages/Privacy';
+import { TermsPage } from '../pages/Terms';
+import { ReturnsPage } from '../pages/Returns';
 declare global {
   interface Window { navigateTo: (path: string) => void; }
 }
@@ -32,6 +35,9 @@ export class Router {
       ['/profile', UserProfilePage],
       ['/process-order', ProcessOrderPage],
       ['/contact', ContactPage],
+      ['/privacy', PrivacyPage],
+      ['/terms', TermsPage],
+      ['/returns', ReturnsPage],
     ]);
 
     this.initializeRouter();

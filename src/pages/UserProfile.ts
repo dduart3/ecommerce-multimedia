@@ -70,6 +70,7 @@ export class UserProfilePage extends Page {
           </div>
         </div>
       </div>
+      <app-footer></app-footer>
     `;
     this.renderOrders();
 }

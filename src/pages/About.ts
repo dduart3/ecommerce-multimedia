@@ -35,6 +35,7 @@ export class About extends Page {
                 </div>
             </div>
         </div>
+        <app-footer></app-footer>
     `;
 }
 

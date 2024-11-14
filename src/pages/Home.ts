@@ -20,7 +20,7 @@ export class HomePage extends Page {
         audacia y originalidad.</p>
       <p class="bg-black w-fit p-3 mt-5 font-oxygen font-bold">Descuento de hasta un 80% de descuento en tu primera compra.
       </p>
-      <button class="pt-6 hover:scale-105 transition-all ease-in-out"><img src="./src/assets/images/comprar-btn-landing.png" width="200px" /></button>
+     <a href="/products"> <button class="pt-6 hover:scale-105 transition-all ease-in-out"><img src="./src/assets/images/comprar-btn-landing.png" width="200px" /></button></a>
     </div>
 
     <!-- Imagen  -->
@@ -96,7 +96,7 @@ export class HomePage extends Page {
         elevarlo a otro nivel. </p>
 
       <button class="pt-10 hover:scale-110 ease-in transition-transform">
-        <img src="./src/assets/images/VerBtn.png" alt="">
+       <a href="/products"> <img src="./src/assets/images/VerBtn.png" alt=""></a>
       </button>
 
     </div>
@@ -154,19 +154,19 @@ export class HomePage extends Page {
       <!-- Mujer  -->
       <div class="flex flex-col items-center">
         <img src="./src/assets/images/Mujer.png"
-          class="mb-2 hover:scale-105 ease-in-out transition-transform duration-500 cursor-pointer" />
+          class="mb-2 hover:scale-105 ease-in-out transition-transform duration-500" />
         <p class="mt-[-70px]">Mujer</p>
       </div>
       <!-- Hombre -->
       <div class="flex flex-col items-center">
         <img src="./src/assets/images/Hombre.png"
-          class="mb-2 hover:scale-105 ease-in-out transition-transform duration-500 cursor-pointer" />
+          class="mb-2 hover:scale-105 ease-in-out transition-transform duration-500" />
         <p class="mt-[-70px]">Hombre</p>
       </div>
       <!-- Otros  -->
       <div class="flex flex-col items-center">
         <img src="./src/assets/images/Otros.png"
-          class="mb-2 hover:scale-105 ease-in-out transition-transform duration-500 cursor-pointer" />
+          class="mb-2 hover:scale-105 ease-in-out transition-transform duration-500" />
         <p class="mt-[-40px]">Accesorios</p>
       </div>
 
@@ -203,9 +203,9 @@ export class HomePage extends Page {
               <!-- Additional required wrapper -->
               <div class="swiper-wrapper w-5 ">
                 <!-- Slides -->
-                <div class="swiper-slide"> <img src="./src/assets/images/Product1.png" width="430px" class="mt-[-3px] cursor-pointer hover:scale-95 transition-all ease-in-out" /></div>
-                <div class="swiper-slide"> <img src="./src/assets/images/product-4-populares-home.png" width="430px" class="mt-[-3px] cursor-pointer hover:scale-95 transition-all ease-in-out" /></div>
-                <div class="swiper-slide"> <img src="./src/assets/images/product-5-populares-home.png" class="mt-[-3px] cursor-pointer hover:scale-95 transition-all ease-in-out" width="430px" /></div>
+                <div class="swiper-slide"><a href="/product/co8Yg3KDZQbyhxOBg0Ku"><img src="./src/assets/images/Product1.png" width="430px" class="mt-[-3px] cursor-pointer hover:scale-95 transition-all ease-in-out" /></a></div>
+                <div class="swiper-slide"><a href="/product/glf11HcfBQDszkXIFZT8"><img src="./src/assets/images/product-4-populares-home.png" width="430px" class="mt-[-3px] cursor-pointer hover:scale-95 transition-all ease-in-out" /></a></div>
+                <div class="swiper-slide"><a href="/product/E3fBAc3EppFvcKFpB9YM"><img src="./src/assets/images/product-5-populares-home.png" class="mt-[-3px] cursor-pointer hover:scale-95 transition-all ease-in-out" width="430px" /></a></div>
                 ...
               </div>
               <!-- If we need pagination -->
@@ -222,10 +222,10 @@ export class HomePage extends Page {
             <p
               class="font-orbitron text-dark font-bold border-2 border-primary align-middle items-center justify-center flex p-2 mb-5">
               Populares</p>
-            <img src="./src/assets/images/Product2.png" class="cursor-pointer hover:scale-105 transition-all ease-out"/>
+           <a href="/product/kkfhNlq8ifgs6LvtxX7F"> <img src="./src/assets/images/Product2.png" class="cursor-pointer hover:scale-105 transition-all ease-out"/></a>
           </div>
             <div class="cursor-pointer hover:scale-105 transition-all ease-in-out">
-              <img src="./src/assets/images/Product3.png" class="mt-[-210px]" class="cursor-pointer hover:scale-105 transition-all ease-out z-50" />
+             <a href="/product/xc9mG8wTWooPAaXKiZn8"> <img src="./src/assets/images/Product3.png" class="mt-[-210px]" class="cursor-pointer hover:scale-105 transition-all ease-out z-50" /></a>
             </div>
               
         </div>
@@ -257,7 +257,7 @@ export class HomePage extends Page {
            
           </div>
 
-          <button class="translate-x-[200%] mt-10 hover:scale-105 transition-all ease-in-out"><img src="./src/assets/images/tiendaBtn.png" /></button>
+          <button class="translate-x-[200%] mt-10 hover:scale-105 transition-all ease-in-out"> <a href="/products"> <img src="./src/assets/images/tiendaBtn.png" /></a> </button>
 
         </div>
       </div>

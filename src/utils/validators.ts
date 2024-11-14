@@ -31,9 +31,14 @@ export const AuthOperationResultMessage = {
 export function validateRegisterData(registerData: IRegisterData): AuthOperationResult {
   const { email, password, confirmPassword, firstName, lastName } = registerData;
   
-  const validateNameResult = validateName(firstName, lastName) ;
-  if (validateNameResult !== AuthOperationResult.SUCCESS){
-    return validateNameResult;
+  const validateNameFirstNameResult = validateName(firstName) ;
+  if (validateNameFirstNameResult !== AuthOperationResult.SUCCESS){
+    return validateNameFirstNameResult;
+  }
+
+  const validateNameLastNameResult = validateName(lastName) ;
+  if (validateNameLastNameResult !== AuthOperationResult.SUCCESS){
+    return validateNameLastNameResult;
   }
 
   const isEmailValid = validateEmail(email);
@@ -84,18 +89,18 @@ function validatePasswordConfirmation(password: string, confirmPassword: string)
   return password === confirmPassword;
 }
 
-function validateName(firstName: string, lastName: string): AuthOperationResult {
+function validateName(name: string): AuthOperationResult {
   const nameValidationRegex = /^[A-Za-z]+$/;
   
-  if (!firstName || firstName.length < 2 || firstName.length > 30){
+  if (!name || name.length < 2){
     return AuthOperationResult.NAME_TOO_SHORT;
   }
   
-  if (!lastName || lastName.length < 2 || lastName.length > 30){
+  if (name.length > 30){
     return AuthOperationResult.NAME_TOO_LONG;
   }
   
-  if (!nameValidationRegex.test(firstName) || !nameValidationRegex.test(lastName)){
+  if (!nameValidationRegex.test(name)){
     return AuthOperationResult.INVALID_NAME_FORMAT;
   }
   
