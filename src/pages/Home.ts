@@ -11,7 +11,21 @@ export class HomePage extends Page {
 
 <div>
 
-  <div class="flex items-center justify-space h-full">
+  <div class="flex items-center justify-space h-full" id="Home">
+
+
+  <div class="vertical-navigation">
+    <a href="#Home" class="dot"></a>
+    <a href="#01" class="dot"></a>
+    <a href="#02" class="dot"></a>
+    <a href="#03" class="dot"></a>
+    <a href="#04" class="dot"></a>
+     <a href="#05" class="dot"></a>
+      <a href="#faq" class="dot"></a>
+  </div>
+
+
+
     <!-- Evoluciona tu estilo   -->
     <div class="pt-12 pl-24 w-1/2">
       <h1 class="font-orbitron font-black text-[80px]">EVOLUCIONA TU ESTILO</h1>
@@ -80,7 +94,7 @@ export class HomePage extends Page {
 
   <!-- Nosotros  -->
 
-  <div class="flex h-[750px] w-full bg-slate-100 overflow-hidden ml-2">
+  <div class="flex h-[750px] w-full bg-slate-100 overflow-hidden ml-2" id="01">
     <img src="./src/assets/images/demonio.png" class="object-cover mt-[-110px]" />
 
     <!-- Experiencia HADESX  -->
@@ -105,7 +119,7 @@ export class HomePage extends Page {
 
 <!-- Una nueva manera de vestir  -->
 
-<div class="pl-4 ">
+<div class="pl-4" id="02">
   <img src="./src/assets/images/fondo1.png" class="-z-10 absolute" />
   <div class="font-orbitron font-bold flex justify-between w-full p-20 items-center h-96 pt-[140px]">
     <h2 class="w-1/2 text-[80px]">UNA NUEVA MANERA DE VESTIR</h2>
@@ -130,7 +144,7 @@ export class HomePage extends Page {
 
 
 <!-- Catalogo  -->
-<div class="w-screen ml-[-9px] bg-slate-50">
+<div class="w-screen ml-[-9px] bg-slate-50" id="03">
 
   <div
     class="h-[900px] w-screen ml-[25px] bg-slate-50 bg-[url('./src/assets/images/linea.png')] bg-no-repeat bg-left">
@@ -182,7 +196,7 @@ export class HomePage extends Page {
 
     <!-- Techwear Essentials [Productos destacados]  -->
 
-    <div class="h-[1700px] bg-slate-50 w-full ml-[-9px]">
+    <div class="h-[1700px] bg-slate-50 w-full ml-[-9px]" id="04">
       <div
         class="h-full w-full bg-[url('./src/assets/images/shop_section.png')] bg-no-repeat object-cover ml-[9px]">
 
@@ -237,7 +251,7 @@ export class HomePage extends Page {
       <!-- Contactanos  -->
 
       <section
-        class="w-full h-[620px] bg-[url('./src/assets/images/ContactanosBg.png')] bg-cover bg-center ml-[-7px] flex pt-72 font-orbitron font-bold">
+        class="w-full h-[620px] bg-[url('./src/assets/images/ContactanosBg.png')] bg-cover bg-center ml-[-7px] flex pt-72 font-orbitron font-bold" id="05">
 
         <h6 class=" text-[50px] pl-24 ">NO SEAS TIMIDO. <br> CONTACTANOS.</h6>
 
@@ -254,7 +268,7 @@ export class HomePage extends Page {
 
 
       <section
-  class="w-full h-[1000px] bg-[url('./src/assets/images/FAQBg.png')] bg-cover bg-center ml-[-7px] flex justify-center pt-72 font-orbitron font-bold overflow-hidden">
+  class="w-full h-[1000px] bg-[url('./src/assets/images/FAQBg.png')] bg-cover bg-center ml-[-7px] flex justify-center pt-72 font-orbitron font-bold overflow-hidden" id="faq">
   
   <div class="w-[500px] h-[800px] bg-[url('./src/assets/images/FAQ-acordeon-container.png')] bg-no-repeat bg-contain font-krona opacity-90 pr-12 pl-12 text-[18px] font-normal flex flex-col justify-center translate-x-[296px]">
 
@@ -296,7 +310,28 @@ export class HomePage extends Page {
   </div>
 </section>
 
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const dots = document.querySelectorAll('.dot');
+        const path = window.location.pathname;
 
+        // Definir las rutas que tendrán los puntos negros
+        const blackDotPaths = ['/01', '/03', '/04'];
+
+        // Recorrer los dots y verificar la ruta actual
+        dots.forEach((dot, index) => {
+            const sectionPath = dot.getAttribute('href'); // Obtiene el href del dot como "#01"
+
+            if (blackDotPaths.includes(sectionPath.replace('#', '/'))) {
+                dot.style.borderColor = '#000'; // Cambiar borde a negro
+                dot.style.backgroundColor = '#000'; // Fondo negro
+            } else {
+                dot.style.borderColor = '#fff'; // Cambiar borde a blanco
+                dot.style.backgroundColor = 'transparent'; // Fondo transparente
+            }
+        });
+    });
+</script>
 
       <app-footer></app-footer>
     `;
@@ -322,6 +357,7 @@ export class HomePage extends Page {
       },
       
     });
+    
     
    
 
