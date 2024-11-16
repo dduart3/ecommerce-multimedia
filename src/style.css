@@ -17,6 +17,7 @@
  html {
   line-height: 1.15; /* 1 */
   -webkit-text-size-adjust: 100%; /* 2 */
+  scroll-behavior: smooth;
 }
 
 /* Sections
@@ -30,6 +31,7 @@ body {
   margin: 0;
   width: 100vw;
   height: 100vh;
+  
 }
 
 /**
@@ -452,4 +454,34 @@ details[open] div {
 .swiper2{
   width: 1000px;
   height: 300px
+}
+
+
+.vertical-navigation {
+  position: fixed;
+  top: 50%;
+  right: 20px; /* Cambia a 'right' para posicionarlo a la derecha */
+  transform: translateY(-50%);
+  z-index: 999; /* Asegúrate de que esté encima de otros elementos */
+}
+
+.dot {
+  display: block;
+  width: 8px; /* Tamaño más pequeño */
+  height: 8px; /* Tamaño más pequeño */
+  background-color: transparent; /* Relleno transparente */
+  border: 2px solid #fff; /* Borde blanco */
+  border-radius: 50%; /* Mantiene los puntos circulares */
+  margin: 10px 0; /* Espaciado entre puntos */
+  transition: background-color 0.3s, border-color 0.3s; /* Efecto suave al cambiar color */
+ 
+}
+
+.dot:hover {
+  background-color: rgba(255, 255, 255, 0.3); /* Cambia el color al pasar el mouse */
+}
+
+.dot.active {
+  background-color: #fff; /* Relleno blanco cuando está activo */
+  border-color: #fff; /* Borde blanco cuando está activo */
 }
