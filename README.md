@@ -42,7 +42,7 @@ A modern e-commerce platform built with TypeScript and Firebase, featuring real-
 ```
 1. Clone the repository
 bash
-git clone https://github.com/yourusername/hadesx-ecommerce.git
+git clone https://github.com/dduart3/ecommerce-multimedia.git 
 
 2. Install dependencies
 npm run dev
