@@ -4,7 +4,7 @@ import { getFirestore } from "firebase/firestore";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyA3adhLu9hWZ_O4IASne2rFSno0a9a3rCs",
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
   authDomain: "eccomerce-multimedia.firebaseapp.com",
   projectId: "eccomerce-multimedia",
   storageBucket: "eccomerce-multimedia.firebasestorage.app",

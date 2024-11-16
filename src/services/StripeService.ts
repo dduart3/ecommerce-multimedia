@@ -60,7 +60,7 @@ export class StripeService {
   }
 
   private async initializeStripe() {
-    this.stripe = await loadStripe('pk_test_51QHymTIyj0lnLLZfDdYDsZClfxhhihJH1VUVdrycoxhvAT1xWyc7IpTOBv0F8aFpo7PCJSq2wowW3K5qRN8MNuu2009uAPLU7z');
+    this.stripe = await loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
     if (!this.stripe) {
       throw new Error('Stripe initialization failed');
     }
