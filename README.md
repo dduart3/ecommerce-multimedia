@@ -2,6 +2,8 @@
 
 A modern e-commerce platform built with TypeScript and Firebase, featuring real-time cart updates, user authentication, and a responsive design.
 
+Created by @dduart3 and @antocalini
+
 ## Features
 
 - **Authentication System**
